@@ -1,7 +1,7 @@
 package com.kurnavova.spacedout.domain.model
 
 /**
- * Represents an article.
+ * Represents an article with all available details.
  *
  * @property id The unique identifier of the article.
  * @property title The title of the article.

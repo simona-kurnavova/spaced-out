@@ -1,5 +1,6 @@
 package com.kurnavova.spacedout.features.newslist.ui
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -94,7 +95,8 @@ private fun NewsListScreen(
 private const val SCREEN_PADDING = 12
 private const val SPACE_BETWEEN_ITEMS = 12
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
 private fun NewsListPreview() {
     val article = Article(
@@ -118,8 +120,8 @@ private fun NewsListPreview() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)@Composable
 private fun NewsListErrorPreview() {
     val state = remember {
         mutableStateOf(

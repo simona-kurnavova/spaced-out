@@ -1,5 +1,6 @@
 package com.kurnavova.spacedout.ui.components.card
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -70,7 +71,8 @@ fun ExpandableCard(
 
 private const val INSIDE_PADDING = 16
 
-@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
 private fun ExpandableCardPreview() {
     SpacedOutTheme {
