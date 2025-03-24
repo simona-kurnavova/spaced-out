@@ -16,5 +16,16 @@ data class ArticleResponse(
     val summary: String,
 
     @SerializedName("image_url")
-    val imageUrl: String
+    val imageUrl: String,
+
+    @SerializedName("authors")
+    val authors: List<Author>,
+
+    @SerializedName("published_at")
+    val publishedAt: String
+)
+
+data class Author(
+    @SerializedName("name")
+    val name: String
 )

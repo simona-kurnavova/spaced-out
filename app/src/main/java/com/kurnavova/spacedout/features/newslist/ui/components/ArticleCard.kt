@@ -28,7 +28,7 @@ fun ArticleCard(
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun ArticleCardPreview() {
     SpacedOutTheme {

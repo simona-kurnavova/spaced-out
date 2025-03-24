@@ -47,7 +47,7 @@ private fun NewsListScreen(
     uiState: State<NewsListUiState>,
     onAction: (NewsListAction) -> Unit,
 ) {
-    val status = uiState.value.loadingState
+    val status = uiState.value
 
     Box(
         modifier = Modifier
@@ -55,12 +55,12 @@ private fun NewsListScreen(
             .padding(SCREEN_PADDING.dp)
     ) {
         when(status) {
-            is LoadingState.Loading ->
+            is NewsListUiState.Loading ->
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.Center)
                 )
 
-            is LoadingState.Error ->
+            is NewsListUiState.Error ->
                 Text(
                     text = stringResource(id = status.message),
                     style = MaterialTheme.typography.bodyLarge,
@@ -68,7 +68,7 @@ private fun NewsListScreen(
                     modifier = Modifier.align(Alignment.Center)
                 )
 
-            is LoadingState.Loaded ->
+            is NewsListUiState.Loaded ->
                 LazyColumn {
                     items(status.articles.size) { index ->
                         val article = status.articles[index]
@@ -86,7 +86,7 @@ private fun NewsListScreen(
                     }
                 }
 
-            is LoadingState.Idle -> Unit // Just wait
+            is NewsListUiState.Idle -> Unit // Just wait
         }
     }
 }
@@ -103,11 +103,11 @@ private fun NewsListPreview() {
         summary = "Article summary",
     )
     val state = remember {
-        mutableStateOf(NewsListUiState(
-            loadingState = LoadingState.Loaded(
+        mutableStateOf(
+            NewsListUiState.Loaded(
                 articles = persistentListOf(article, article, article, article)
             )
-        ))
+        )
     }
 
     SpacedOutTheme {
@@ -118,15 +118,15 @@ private fun NewsListPreview() {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun NewsListErrorPreview() {
     val state = remember {
-        mutableStateOf(NewsListUiState(
-            loadingState = LoadingState.Error(
-               message = R.string.error_server
+        mutableStateOf(
+            NewsListUiState.Error(
+                message = R.string.error_server
             )
-        ))
+        )
     }
 
     SpacedOutTheme {

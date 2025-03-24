@@ -1,10 +1,9 @@
 package com.kurnavova.spacedout.features.newslist.usecase
 
 import androidx.annotation.StringRes
-import com.kurnavova.spacedout.R
 import com.kurnavova.spacedout.domain.api.SpaceFlightRepository
 import com.kurnavova.spacedout.domain.model.ApiResult
-import com.kurnavova.spacedout.domain.model.ErrorType
+import com.kurnavova.spacedout.features.mapper.toErrorMessage
 import com.kurnavova.spacedout.features.newslist.ui.Article
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -29,20 +28,13 @@ class FetchArticlesUseCase(
                         Article(
                             id = it.id,
                             title = it.title,
-                            summary = it.summary,
+                            summary = it.summary.trim(),
                         )
                     }.toPersistentList()
                 )
             }
             is ApiResult.Error -> {
-                ArticlesState(
-                    errorMessage = when(result.type) {
-                        ErrorType.Server -> R.string.error_server
-                        ErrorType.Client -> R.string.error_client
-                        ErrorType.Network -> R.string.error_network
-                        ErrorType.Unknown -> R.string.error_unknown
-                    }
-                )
+                ArticlesState(errorMessage = result.toErrorMessage())
             }
         }
     }

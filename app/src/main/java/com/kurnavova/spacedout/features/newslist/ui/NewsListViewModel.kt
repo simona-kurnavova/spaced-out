@@ -1,7 +1,6 @@
 package com.kurnavova.spacedout.features.newslist.ui
 
 import androidx.annotation.StringRes
-import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kurnavova.spacedout.features.newslist.usecase.FetchArticlesUseCase
@@ -17,7 +16,8 @@ import kotlinx.coroutines.launch
 class NewsListViewModel(
     private val fetchArticlesUseCase: FetchArticlesUseCase
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(NewsListUiState())
+    private val _uiState: MutableStateFlow<NewsListUiState> =
+        MutableStateFlow(NewsListUiState.Idle)
 
     /**
      * Flow of the current UI state.
@@ -36,32 +36,27 @@ class NewsListViewModel(
     }
 
     private fun updateArticles() {
-        _uiState.update { it.copy(loadingState = LoadingState.Loading) }
+        _uiState.update { NewsListUiState.Loading }
 
         viewModelScope.launch {
             val state = fetchArticlesUseCase.fetchAll()
 
             _uiState.update {
                 if (state.errorMessage != null) {
-                    NewsListUiState(LoadingState.Error(state.errorMessage))
+                    NewsListUiState.Error(state.errorMessage)
                 } else {
-                    NewsListUiState(LoadingState.Loaded(state.articles))
+                    NewsListUiState.Loaded(state.articles)
                 }
             }
         }
     }
 }
 
-@Stable
-data class NewsListUiState(
-    val loadingState: LoadingState = LoadingState.Idle,
-)
-
-sealed interface LoadingState {
-    object Idle : LoadingState
-    object Loading : LoadingState
-    data class Error(@StringRes val message: Int) : LoadingState
-    data class Loaded(val articles: ImmutableList<Article>) : LoadingState
+sealed interface NewsListUiState {
+    object Idle : NewsListUiState
+    object Loading : NewsListUiState
+    data class Error(@StringRes val message: Int) : NewsListUiState
+    data class Loaded(val articles: ImmutableList<Article>) : NewsListUiState
 }
 
 data class Article(

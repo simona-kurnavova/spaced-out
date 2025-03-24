@@ -37,7 +37,6 @@ fun ArticleNonExpanded(
     }
 }
 
-private const val MAX_IMAGE_SIZE = 96
 private const val SPACER_SIZE = 12
 
 @Preview(showBackground = true)
