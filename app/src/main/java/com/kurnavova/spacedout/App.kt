@@ -1,6 +1,7 @@
 package com.kurnavova.spacedout
 
 import android.app.Application
+import com.kurnavova.spacedout.data.connectivity.di.connectivityModule
 import com.kurnavova.spacedout.data.network.di.dataModule
 import com.kurnavova.spacedout.features.newsdetail.di.newsDetailModule
 import com.kurnavova.spacedout.features.newslist.di.newsListModule
@@ -22,7 +23,7 @@ class App : Application(){
                 androidLogger(Level.DEBUG)
             }
             androidContext(this@App)
-            modules(dataModule, newsDetailModule, newsListModule)
+            modules(dataModule, newsDetailModule, newsListModule, connectivityModule)
         }
     }
 }

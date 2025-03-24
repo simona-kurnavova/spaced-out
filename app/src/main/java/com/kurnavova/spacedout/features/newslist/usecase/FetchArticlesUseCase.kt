@@ -1,6 +1,8 @@
 package com.kurnavova.spacedout.features.newslist.usecase
 
 import androidx.annotation.StringRes
+import com.kurnavova.spacedout.R
+import com.kurnavova.spacedout.data.connectivity.NetworkStatusProvider
 import com.kurnavova.spacedout.domain.api.SpaceFlightRepository
 import com.kurnavova.spacedout.domain.model.ApiResult
 import com.kurnavova.spacedout.features.mapper.toErrorMessage
@@ -13,12 +15,17 @@ import kotlinx.collections.immutable.toPersistentList
  * Use case for fetching articles.
  */
 class FetchArticlesUseCase(
-    private val repository: SpaceFlightRepository
+    private val repository: SpaceFlightRepository,
+    private val networkStatusProvider: NetworkStatusProvider,
 ) {
     /**
      *  Fetches all articles.
      */
     suspend fun fetchAll(): ArticlesState {
+        if (!networkStatusProvider.hasInternet()) {
+            return ArticlesState(errorMessage = R.string.error_network)
+        }
+
         val result = repository.getNews()
 
         return when(result) {

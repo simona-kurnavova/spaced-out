@@ -3,10 +3,13 @@ package com.kurnavova.spacedout.features.newslist.ui
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kurnavova.spacedout.data.connectivity.NetworkStatusProvider
 import com.kurnavova.spacedout.features.newslist.usecase.FetchArticlesUseCase
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -14,7 +17,8 @@ import kotlinx.coroutines.launch
  * ViewModel for the NewsListScreen.
  */
 class NewsListViewModel(
-    private val fetchArticlesUseCase: FetchArticlesUseCase
+    private val fetchArticlesUseCase: FetchArticlesUseCase,
+    networkStatusProvider: NetworkStatusProvider,
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<NewsListUiState> =
         MutableStateFlow(NewsListUiState.Idle)
@@ -26,6 +30,13 @@ class NewsListViewModel(
 
     init {
         updateArticles()
+
+        // Refresh articles when network connection is restored
+        networkStatusProvider.isConnected.onEach { isConnected ->
+            if (isConnected && _uiState.value !is NewsListUiState.Loaded) {
+                updateArticles()
+            }
+        }.launchIn(viewModelScope)
     }
 
     fun onAction(action: NewsListAction) {
