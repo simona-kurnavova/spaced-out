@@ -11,6 +11,6 @@ fun ArticleResponse.toDomain(): Article {
         id = id,
         title = title,
         url = url,
-        summary = summary
+        summary = summary,
     )
 }

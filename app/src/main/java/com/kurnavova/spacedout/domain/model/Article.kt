@@ -12,5 +12,5 @@ data class Article(
     val id: Int,
     val title: String,
     val url: String,
-    val summary: String
+    val summary: String,
 )

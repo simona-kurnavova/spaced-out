@@ -12,7 +12,8 @@ sealed interface ApiResult<out T> {
  * Represents the type of error that occurred.
  */
 enum class ErrorType {
-    NETWORK,
-    SERVER,
-    UNKNOWN
+    Server,
+    Client,
+    Network,
+    Unknown,
 }

@@ -65,6 +65,9 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinx.coroutines)
 
+    // Coil for images
+    implementation(libs.coil.compose)
+
     // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
