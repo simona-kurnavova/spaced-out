@@ -1,3 +1,10 @@
 <resources>
+    <!-- App name -->
     <string name="app_name">Spaced Out</string>
+
+    <!-- Toolbar title for the news detail screen -->
+    <string name="news_detail_toolbar_title">Article</string>
+
+    <!-- Content description for the "Navigate back" button -->
+    <string name="back">Navigate back</string>
 </resources>
