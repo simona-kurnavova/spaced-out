@@ -15,6 +15,7 @@ fun CoilImage(
     modifier: Modifier = Modifier,
     contentDescription: String? = null,
 ) {
+    // Note: It would be nice to have some placeholder here.
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
             .data(url)

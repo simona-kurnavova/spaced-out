@@ -74,6 +74,9 @@ dependencies {
     implementation(libs.bundles.paging)
     ksp(libs.room.compiler)
 
+    // WorkManager
+    implementation(libs.androidx.work)
+
     // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

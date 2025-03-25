@@ -10,8 +10,6 @@ import com.kurnavova.spacedout.domain.usecase.model.ArticleUseCaseResult
 import com.kurnavova.spacedout.ui.mapper.toErrorMessage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 

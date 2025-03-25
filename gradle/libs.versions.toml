@@ -25,6 +25,7 @@ coil = "2.7.0"
 room = "2.6.1"
 paging = "3.3.6"
 ksp = "2.1.20-RC-1.0.30"
+work = "2.10.0"
 
 [libraries]
 koin = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
@@ -37,6 +38,7 @@ kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutin
 kotlin-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "immutable" }
 kotlinx-serialization = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization"}
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+androidx-work = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
 
 paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }

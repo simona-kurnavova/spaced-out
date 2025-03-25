@@ -22,6 +22,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import retrofit2.Response
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 /**
  * Implementation of the SpaceFlightRepository.
@@ -51,6 +53,17 @@ class SpaceFlightRepositoryImpl(
                 processBody = { it.toDomain() }
             )
 
+    /**
+     * Cleans the cache by deleting all articles that are older than [CLEANUP_THRESHOLD_DAYS] days.
+     *
+     * @return True if the cache was cleaned successfully, false otherwise.
+     */
+    suspend fun cleanOldCache(): Boolean = withContext(dispatcher) {
+        val formatter = DateTimeFormatter.ISO_LOCAL_DATE
+        val threshold = LocalDate.now().minusDays(CLEANUP_THRESHOLD_DAYS).format(formatter)
+        return@withContext runCatching { articleDao.deleteOlderThan(threshold) }.isSuccess
+    }
+
     private suspend fun <T, R> runNetworkQuery(
         query: suspend () -> Response<T>,
         processBody: (T) -> R,
@@ -76,4 +89,6 @@ class SpaceFlightRepositoryImpl(
 }
 
 private const val TAG = "SpaceFlightRepositoryImpl"
+
 private const val PAGE_SIZE = 10
+private const val CLEANUP_THRESHOLD_DAYS = 30L
