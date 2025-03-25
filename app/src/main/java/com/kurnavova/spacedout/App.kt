@@ -1,8 +1,8 @@
 package com.kurnavova.spacedout
 
 import android.app.Application
-import com.kurnavova.spacedout.data.connectivity.di.connectivityModule
 import com.kurnavova.spacedout.data.di.dataModule
+import com.kurnavova.spacedout.domain.di.domainModule
 import com.kurnavova.spacedout.features.newsdetail.di.newsDetailModule
 import com.kurnavova.spacedout.features.newslist.di.newsListModule
 import org.koin.android.ext.koin.androidContext
@@ -23,7 +23,7 @@ class App : Application(){
                 androidLogger(Level.DEBUG)
             }
             androidContext(this@App)
-            modules(dataModule, newsDetailModule, newsListModule, connectivityModule)
+            modules(dataModule, domainModule, newsDetailModule, newsListModule)
         }
     }
 }

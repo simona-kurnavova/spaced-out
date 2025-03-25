@@ -43,8 +43,8 @@ fun Toolbar(
 /**
  * Represents the state of the toolbar.
  *
- * @param title The title of the toolbar.
- * @param backActionAvailable Whether the back button action is available.
+ * @property title The title of the toolbar.
+ * @property backActionAvailable Whether the back button action is available.
  */
 @Stable
 data class ToolbarState(

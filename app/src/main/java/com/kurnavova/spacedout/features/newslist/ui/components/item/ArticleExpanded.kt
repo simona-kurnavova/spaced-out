@@ -1,4 +1,4 @@
-package com.kurnavova.spacedout.features.newslist.ui.components
+package com.kurnavova.spacedout.features.newslist.ui.components.item
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,9 +10,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kurnavova.spacedout.R
 import com.kurnavova.spacedout.ui.components.text.ClickableText
+import com.kurnavova.spacedout.ui.components.text.FadedSubtitle
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 
 @Composable
@@ -31,18 +34,15 @@ fun ArticleExpanded(
 
         HorizontalDivider(modifier = Modifier.padding(vertical = DIVIDER_PADDING.dp))
 
-        Text(
+        FadedSubtitle(
             text = summary,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onBackground.copy(
-                alpha = SUBTITLE_ALPHA
-            )
+            modifier = Modifier.padding(top = DIVIDER_PADDING.dp)
         )
 
         Spacer(modifier = Modifier.height(SPACER_BEFORE_ACTION.dp))
 
         ClickableText(
-            text = "Read more",
+            text = stringResource(R.string.article_item_read_more),
             onClick = onReadMoreAction,
             modifier = Modifier.align(Alignment.End)
         )
@@ -51,7 +51,6 @@ fun ArticleExpanded(
 
 private const val DIVIDER_PADDING = 12
 private const val SPACER_BEFORE_ACTION = 12
-private const val SUBTITLE_ALPHA = 0.6f
 
 @Preview(showBackground = true)
 @Composable

@@ -1,4 +1,4 @@
-package com.kurnavova.spacedout.features.newslist.ui.components
+package com.kurnavova.spacedout.features.newslist.ui.components.item
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

@@ -6,6 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.kurnavova.spacedout.data.spaceflights.local.model.ArticleEntity
 
+/**
+ * Room database for articles.
+ */
 @Database(
     entities = [ArticleEntity::class],
     version = ArticleDatabase.Companion.DATABASE_VERSION,

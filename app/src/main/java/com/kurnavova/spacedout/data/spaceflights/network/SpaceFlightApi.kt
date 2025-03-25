@@ -28,5 +28,3 @@ interface SpaceFlightApi {
     @GET("articles/{id}/")
     suspend fun getArticle(@Path("id") id: Int): Response<ArticleResponse>
 }
-
-private const val LIMIT = 100

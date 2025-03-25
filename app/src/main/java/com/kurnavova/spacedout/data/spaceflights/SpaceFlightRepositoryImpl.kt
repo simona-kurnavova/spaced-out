@@ -54,18 +54,17 @@ class SpaceFlightRepositoryImpl(
     private suspend fun <T, R> runNetworkQuery(
         query: suspend () -> Response<T>,
         processBody: (T) -> R,
-    ): ApiResult<R> =
-        withContext(dispatcher) {
-            val result = runCatching { query() }
+    ): ApiResult<R> = withContext(dispatcher) {
+        val result = runCatching { query() }
 
-            if (result.isFailure) {
-                return@withContext ApiResult.Error(ErrorType.Network)
-            } else {
-                return@withContext result.getOrNull()
-                    ?.toApiResult(processBody)
-                    ?: ApiResult.Error(ErrorType.Unknown)
-            }
+        if (result.isFailure) {
+            return@withContext ApiResult.Error(ErrorType.Network)
+        } else {
+            return@withContext result.getOrNull()
+                ?.toApiResult(processBody)
+                ?: ApiResult.Error(ErrorType.Unknown)
         }
+    }
 
     private suspend fun queryArticleFromCache(id: Int): ArticleEntity? = withContext(dispatcher) {
         Log.d(TAG, "Attempting to retrieve article with id $id from cache")

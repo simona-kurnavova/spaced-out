@@ -4,7 +4,18 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "articles", indices = [Index(value = ["date"])])
+/**
+ * Represents an article in the database.
+ *
+ * @property id Unique identifier.
+ * @property title Title of the article.
+ * @property summary Summary of the article.
+ * @property url URL of the article.
+ * @property imageUrl URL of the image.
+ * @property author Comma-separated list of authors.
+ * @property date Date in ISO 8601 format.
+ */
+@Entity(tableName = TABLE_NAME, indices = [Index(value = ["date"])])
 data class ArticleEntity(
     @PrimaryKey
     val id: Int,
@@ -15,3 +26,5 @@ data class ArticleEntity(
     val author: String,
     val date: String
 )
+
+private const val TABLE_NAME = "articles"

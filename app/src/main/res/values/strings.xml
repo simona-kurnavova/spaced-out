@@ -2,27 +2,30 @@
     <!-- App name -->
     <string name="app_name">Spaced Out</string>
 
-    <!-- Toolbar title for the news detail screen -->
-    <string name="news_detail_toolbar_title">Article</string>
-
     <!-- Content description for the "Navigate back" button -->
     <string name="back">Navigate back</string>
-
     <!-- Content description for expand card button -->
     <string name="expand_card_action">Expand card</string>
 
+    <!-- Error messaging -->
+    <string name="error_network">Oops, problem connecting to internet.</string>
+    <string name="error_unknown">Something went wrong, we don\'t know what…</string>
+    <string name="error_server">There was a problem with server response.</string>
+    <string name="error_client">We are having trouble connecting to server.</string>
+
     <!-- News detail screen -->
+    <!-- Toolbar title for the news detail screen -->
+    <string name="news_detail_toolbar_title">Article</string>
     <!-- Read the whole article here - clickable text button. -->
     <string name="news_detail_read_article_here">Read the whole article here</string>
     <!-- Authors and date time of the news article. %1$s will be replaced by list of authors and %2$s by date and time of article. -->
     <string name="news_detail_authors_datetime">%1$s, %2$s</string>
 
-    <!-- Error messaging -->
-    <string name="error_network">Ooops, problem connecting to internet.</string>
-    <string name="error_unknown">Something went wrong, we don\'t know what…</string>
-    <string name="error_server">There was a problem with server response.</string>
-    <string name="error_client">We are having trouble connecting to server.</string>
-
-    <string name="try_again_button">Refresh</string>
+    <!-- News list screen -->
+    <!-- Read more - clickable text button leading to article detail. -->
+    <string name="article_item_read_more">Read more</string>
+    <!-- Try again message at the bottom of the list when there is an internet or connection issue. -->
     <string name="connect_and_try_again">Please connect to the internet and try again</string>
+    <!-- Refresh button shown when there is an internet or connection issue. -->
+    <string name="try_again_button">Refresh</string>
 </resources>

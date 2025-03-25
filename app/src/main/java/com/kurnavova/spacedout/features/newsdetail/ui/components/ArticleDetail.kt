@@ -1,20 +1,17 @@
 package com.kurnavova.spacedout.features.newsdetail.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,6 +20,8 @@ import com.kurnavova.spacedout.R
 import com.kurnavova.spacedout.domain.usecase.model.Article
 import com.kurnavova.spacedout.ui.components.image.CoilImage
 import com.kurnavova.spacedout.ui.components.text.ClickableText
+import com.kurnavova.spacedout.ui.components.text.HighlightedText
+import com.kurnavova.spacedout.ui.components.text.FadedSubtitle
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 import com.kurnavova.spacedout.ui.utils.IntentUtils
 
@@ -39,32 +38,20 @@ fun ArticleDetail(
         CoilImage(
             url = article.imageUrl,
             modifier = Modifier
-                .padding(vertical = IMAGE_PADDING.dp)
+                .padding(bottom = IMAGE_PADDING.dp)
                 .align(Alignment.CenterHorizontally)
         )
 
-        Text(
+        HighlightedText(
             text = article.title,
-            style = MaterialTheme.typography.headlineSmall,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
-            modifier = modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(TITLE_CORNER_RADIUS.dp))
-                .background(
-                    color = MaterialTheme.colorScheme.secondaryContainer,
-                )
-                .padding(TITLE_INSIDE_PADDING.dp)
+            modifier = Modifier.fillMaxWidth()
         )
 
-        Text(
+        FadedSubtitle(
             text = stringResource(
                 R.string.news_detail_authors_datetime,
                 article.authors,
                 article.publishedAt
-            ),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onBackground.copy(
-                alpha = AUTHORS_ALPHA_TEXT
             ),
             modifier = Modifier.padding(vertical = AUTHOR_PADDING.dp)
         )
@@ -74,6 +61,7 @@ fun ArticleDetail(
         Text(
             text = article.summary,
             style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = modifier
         )
 
@@ -88,11 +76,8 @@ fun ArticleDetail(
 }
 
 private const val SPACE_BETWEEN_ITEMS = 16
-private const val AUTHORS_ALPHA_TEXT = 0.6f
-private const val TITLE_CORNER_RADIUS = 8
 private const val AUTHOR_PADDING = 8
-private const val TITLE_INSIDE_PADDING = 8
-private const val IMAGE_PADDING = 4
+private const val IMAGE_PADDING = 8
 
 @Preview(showBackground = true)
 @Composable

@@ -17,7 +17,7 @@ fun ArticleDetail.toArticle(): Article = Article(
     summary = summary.trim(),
     imageUrl = imageUrl,
     url = url,
-    authors = authors.joinToString(", "),
+    authors = authors.joinToString(", "), // For simplicity, let's do this here.
     publishedAt = formatDateTime(publishedAt)
 )
 

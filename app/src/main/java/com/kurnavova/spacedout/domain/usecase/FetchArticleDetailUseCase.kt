@@ -17,8 +17,7 @@ class FetchArticleDetailUseCase(
      *
      * @param id The unique identifier of the article.
      */
-    suspend fun fetchArticle(id: Int): ArticleUseCaseResult<Article> {
-        val result = repository.getArticleById(id)
-        return result.toArticleUseCaseResult { article -> article.toArticle() }
-    }
+    suspend fun fetchArticle(id: Int): ArticleUseCaseResult<Article> =
+        repository.getArticleById(id)
+            .toArticleUseCaseResult { article -> article.toArticle() }
 }

@@ -23,6 +23,14 @@ class NewsListViewModel(
         .cachedIn(viewModelScope)
 }
 
+/**
+ * Represents an action that can be performed on the NewsListScreen.
+ */
 sealed class NewsListAction {
+    /**
+     * Show the detail screen of an article.
+     *
+     * @param id The ID of the article to show.
+     */
     data class ShowDetail(val id: Int) : NewsListAction()
 }

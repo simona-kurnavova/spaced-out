@@ -20,7 +20,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.kurnavova.spacedout.domain.usecase.model.Article
-import com.kurnavova.spacedout.features.newslist.ui.components.ArticleCard
+import com.kurnavova.spacedout.features.newslist.ui.components.item.ArticleCard
 import com.kurnavova.spacedout.features.newslist.ui.components.ErrorState
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 import kotlinx.coroutines.flow.flow

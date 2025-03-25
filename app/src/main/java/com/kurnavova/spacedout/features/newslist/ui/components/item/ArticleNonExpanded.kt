@@ -1,4 +1,4 @@
-package com.kurnavova.spacedout.features.newslist.ui.components
+package com.kurnavova.spacedout.features.newslist.ui.components.item
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

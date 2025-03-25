@@ -16,6 +16,12 @@ import kotlinx.coroutines.withContext
 import kotlin.concurrent.atomics.AtomicReference
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
 
+/**
+ * Remote mediator for articles. This class is responsible for loading articles from the API and caching them in the database.
+ *
+ * @property api The SpaceFlightApi instance.
+ * @property articleDao The ArticleDao instance.
+ */
 @OptIn(ExperimentalPagingApi::class, ExperimentalAtomicApi::class)
 class ArticleRemoteMediator(
     private val api: SpaceFlightApi,
