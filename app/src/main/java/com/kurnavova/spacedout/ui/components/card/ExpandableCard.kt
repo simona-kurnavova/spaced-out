@@ -37,9 +37,7 @@ fun ExpandableCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clickable(
-                onClick = { expanded = !expanded }
-            ),
+            .clickable(onClick = { expanded = !expanded }),
     ) {
         Box(modifier = Modifier.padding(INSIDE_PADDING.dp)) {
             if (expanded) {

@@ -19,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurnavova.spacedout.features.newsdetail.ui.components.ArticleDetail
-import com.kurnavova.spacedout.features.newsdetail.usecase.ArticleUiDetail
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 import org.koin.androidx.compose.koinViewModel
 

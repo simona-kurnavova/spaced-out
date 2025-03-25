@@ -1,4 +1,4 @@
-package com.kurnavova.spacedout.features.mapper
+package com.kurnavova.spacedout.features.ui.mapper
 
 import androidx.annotation.StringRes
 import com.kurnavova.spacedout.R

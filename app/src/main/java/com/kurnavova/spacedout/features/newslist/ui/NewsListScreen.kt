@@ -121,7 +121,8 @@ private fun NewsListPreview() {
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)@Composable
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Composable
 private fun NewsListErrorPreview() {
     val state = remember {
         mutableStateOf(

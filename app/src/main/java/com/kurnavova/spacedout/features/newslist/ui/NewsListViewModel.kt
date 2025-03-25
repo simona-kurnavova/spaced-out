@@ -1,10 +1,13 @@
 package com.kurnavova.spacedout.features.newslist.ui
 
 import androidx.annotation.StringRes
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kurnavova.spacedout.data.connectivity.NetworkStatusProvider
 import com.kurnavova.spacedout.features.newslist.usecase.FetchArticlesUseCase
+import com.kurnavova.spacedout.features.ui.ArticleUseCaseResult
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -47,22 +50,29 @@ class NewsListViewModel(
     }
 
     private fun updateArticles() {
+        if (_uiState.value is NewsListUiState.Loading) {
+            return // Already loading
+        }
+
         _uiState.update { NewsListUiState.Loading }
 
         viewModelScope.launch {
-            val state = fetchArticlesUseCase.fetchAll()
+            val result = fetchArticlesUseCase.fetchAll()
 
             _uiState.update {
-                if (state.errorMessage != null) {
-                    NewsListUiState.Error(state.errorMessage)
-                } else {
-                    NewsListUiState.Loaded(state.articles)
+                when(result) {
+                    is ArticleUseCaseResult.Error ->
+                        NewsListUiState.Error(result.errorMessage)
+
+                    is ArticleUseCaseResult.Success ->
+                        NewsListUiState.Loaded(result.data)
                 }
             }
         }
     }
 }
 
+@Stable
 sealed interface NewsListUiState {
     object Idle : NewsListUiState
     object Loading : NewsListUiState
@@ -70,6 +80,7 @@ sealed interface NewsListUiState {
     data class Loaded(val articles: ImmutableList<Article>) : NewsListUiState
 }
 
+@Immutable
 data class Article(
     val id: Int,
     val title: String,

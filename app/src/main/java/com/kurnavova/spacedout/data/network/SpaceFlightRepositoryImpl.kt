@@ -22,6 +22,7 @@ class SpaceFlightRepositoryImpl(
 ) : SpaceFlightRepository {
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 
+    // TODO: This is asking for some paging.
     override suspend fun getNews(): ApiResult<List<ArticleItem>> =
         safeQuery(
             query = { spaceFlightDao.getArticles() },

@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kurnavova.spacedout.R
-import com.kurnavova.spacedout.features.newsdetail.usecase.ArticleUiDetail
+import com.kurnavova.spacedout.features.newsdetail.ui.ArticleUiDetail
 import com.kurnavova.spacedout.ui.components.image.CoilImage
 import com.kurnavova.spacedout.ui.components.text.ClickableText
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
