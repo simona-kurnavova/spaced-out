@@ -1,4 +1,4 @@
-package com.kurnavova.spacedout.data.network
+package com.kurnavova.spacedout.data.spaceflights.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

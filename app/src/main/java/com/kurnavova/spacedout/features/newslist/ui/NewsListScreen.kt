@@ -2,6 +2,7 @@ package com.kurnavova.spacedout.features.newslist.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,23 +10,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.kurnavova.spacedout.R
+import androidx.paging.LoadState
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.kurnavova.spacedout.domain.usecase.model.Article
 import com.kurnavova.spacedout.features.newslist.ui.components.ArticleCard
+import com.kurnavova.spacedout.features.newslist.ui.components.ErrorState
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
-import kotlinx.collections.immutable.persistentListOf
+import kotlinx.coroutines.flow.flow
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -34,46 +32,36 @@ fun NewsListScreenRoot(
     navigateToDetail: (Int) -> Unit,
 ) {
     NewsListScreen(
-        uiState = viewModel.uiState.collectAsStateWithLifecycle(),
+        articles = viewModel.uiState.collectAsLazyPagingItems(),
         onAction = { action ->
             when (action) {
                 is NewsListAction.ShowDetail -> navigateToDetail(action.id)
-                else -> viewModel.onAction(action)
             }
-        },
+        }
     )
 }
 
 @Composable
 private fun NewsListScreen(
-    uiState: State<NewsListUiState>,
+    articles: LazyPagingItems<Article>,
     onAction: (NewsListAction) -> Unit,
 ) {
-    val status = uiState.value
-
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(SCREEN_PADDING.dp)
+            .padding(horizontal = SCREEN_PADDING.dp)
     ) {
-        when(status) {
-            is NewsListUiState.Loading ->
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
-                )
+        if (articles.loadState.refresh is LoadState.Loading) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+            return@Box
+        }
 
-            is NewsListUiState.Error ->
-                Text(
-                    text = stringResource(id = status.message),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.align(Alignment.Center)
-                )
-
-            is NewsListUiState.Loaded ->
-                LazyColumn {
-                    items(status.articles.size) { index ->
-                        val article = status.articles[index]
+        LazyColumn {
+            items(articles.itemCount) { index ->
+                articles[index]?.let { article ->
+                    Column {
                         ArticleCard(
                             title = article.title,
                             summary = article.summary,
@@ -81,14 +69,26 @@ private fun NewsListScreen(
                             modifier = Modifier.fillMaxWidth()
                         )
 
-                        if (index < status.articles.size - 1) {
-                            // Add some space between items
-                            Spacer(modifier = Modifier.height(SPACE_BETWEEN_ITEMS.dp))
+                        when {
+                            index < articles.itemCount - 1 -> Spacer(
+                                modifier = Modifier.height(SPACE_BETWEEN_ITEMS.dp)
+                            )
+
+                            articles.loadState.append is LoadState.Loading -> CircularProgressIndicator(
+                                modifier = Modifier
+                                    .align(Alignment.CenterHorizontally)
+                                    .padding(top = SPACE_BETWEEN_ITEMS.dp)
+                            )
                         }
                     }
                 }
+            }
 
-            is NewsListUiState.Idle -> Unit // Just wait
+            if (articles.loadState.hasError) {
+                item {
+                    ErrorState(retry = { articles.retry() })
+                }
+            }
         }
     }
 }
@@ -110,37 +110,13 @@ private fun NewsListPreview() {
         publishedAt = "02/03/1992"
     )
 
-    val state = remember {
-        mutableStateOf(
-            NewsListUiState.Loaded(
-                articles = persistentListOf(article, article, article, article)
-            )
-        )
-    }
+    val articles = flow {
+        emit(PagingData.from(listOf(article, article, article)))
+    }.collectAsLazyPagingItems()
 
     SpacedOutTheme {
         NewsListScreen(
-            uiState = state,
-            onAction = {}
-        )
-    }
-}
-
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
-@Composable
-private fun NewsListErrorPreview() {
-    val state = remember {
-        mutableStateOf(
-            NewsListUiState.Error(
-                message = R.string.error_server
-            )
-        )
-    }
-
-    SpacedOutTheme {
-        NewsListScreen(
-            uiState = state,
+            articles = articles,
             onAction = {}
         )
     }

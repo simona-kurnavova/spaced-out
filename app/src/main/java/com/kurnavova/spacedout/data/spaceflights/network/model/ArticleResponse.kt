@@ -1,4 +1,4 @@
-package com.kurnavova.spacedout.data.network.model
+package com.kurnavova.spacedout.data.spaceflights.network.model
 
 import com.google.gson.annotations.SerializedName
 

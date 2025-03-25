@@ -38,10 +38,10 @@ fun ArticleDetail(
     ) {
         CoilImage(
             url = article.imageUrl,
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier
+                .padding(vertical = IMAGE_PADDING.dp)
+                .align(Alignment.CenterHorizontally)
         )
-
-        Spacer(modifier = Modifier.height(SPACE_BETWEEN_ITEMS.dp))
 
         Text(
             text = article.title,
@@ -92,6 +92,7 @@ private const val AUTHORS_ALPHA_TEXT = 0.6f
 private const val TITLE_CORNER_RADIUS = 8
 private const val AUTHOR_PADDING = 8
 private const val TITLE_INSIDE_PADDING = 8
+private const val IMAGE_PADDING = 4
 
 @Preview(showBackground = true)
 @Composable

@@ -22,4 +22,7 @@
     <string name="error_unknown">Something went wrong, we don\'t know what…</string>
     <string name="error_server">There was a problem with server response.</string>
     <string name="error_client">We are having trouble connecting to server.</string>
+
+    <string name="try_again_button">Refresh</string>
+    <string name="connect_and_try_again">Please connect to the internet and try again</string>
 </resources>

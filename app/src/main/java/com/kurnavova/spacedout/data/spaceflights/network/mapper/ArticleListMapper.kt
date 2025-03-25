@@ -1,6 +1,6 @@
-package com.kurnavova.spacedout.data.network.mapper
+package com.kurnavova.spacedout.data.spaceflights.network.mapper
 
-import com.kurnavova.spacedout.data.network.model.ArticleListResponse
+import com.kurnavova.spacedout.data.spaceflights.network.model.ArticleListResponse
 import com.kurnavova.spacedout.domain.model.ArticleDetail
 
 /**
