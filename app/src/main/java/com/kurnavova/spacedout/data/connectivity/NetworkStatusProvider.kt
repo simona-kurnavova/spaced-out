@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
+// TODO: Remove/adjust this after caching is implemented
+
 /**
  * Helper class for checking network connectivity.
  */

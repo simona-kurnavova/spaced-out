@@ -7,16 +7,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
- * Initializes a Retrofit instance.
+ * Initializes a Retrofit API instance.
  */
-object SpaceFlightDaoInitializer {
+object SpaceFlightApiInitializer {
 
     /**
      * Creates a Retrofit instance.
      *
      * @return The Retrofit instance.
      */
-    fun create(): SpaceFlightDao {
+    fun create(): SpaceFlightApi {
         val client = OkHttpClient.Builder()
             .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
@@ -34,7 +34,7 @@ object SpaceFlightDaoInitializer {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        return retrofit.create(SpaceFlightDao::class.java)
+        return retrofit.create(SpaceFlightApi::class.java)
     }
 }
 

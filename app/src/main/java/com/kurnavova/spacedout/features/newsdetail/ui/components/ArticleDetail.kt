@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kurnavova.spacedout.R
-import com.kurnavova.spacedout.features.newsdetail.ui.ArticleUiDetail
+import com.kurnavova.spacedout.domain.usecase.model.Article
 import com.kurnavova.spacedout.ui.components.image.CoilImage
 import com.kurnavova.spacedout.ui.components.text.ClickableText
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
@@ -28,7 +28,7 @@ import com.kurnavova.spacedout.ui.utils.IntentUtils
 
 @Composable
 fun ArticleDetail(
-    article: ArticleUiDetail,
+    article: Article,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -98,7 +98,8 @@ private const val TITLE_INSIDE_PADDING = 8
 private fun ArticleDetailPreview() {
     SpacedOutTheme {
         ArticleDetail(
-            article = ArticleUiDetail(
+            article = Article(
+                id = 1,
                 title = "Article title",
                 summary = "Article content",
                 imageUrl = "https://example.com/image.jpg",

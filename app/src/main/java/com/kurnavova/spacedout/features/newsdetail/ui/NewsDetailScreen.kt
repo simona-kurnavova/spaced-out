@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kurnavova.spacedout.domain.usecase.model.Article
 import com.kurnavova.spacedout.features.newsdetail.ui.components.ArticleDetail
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 import org.koin.androidx.compose.koinViewModel
@@ -75,7 +76,8 @@ private fun NewsDetailScreenPreview() {
     val state = remember {
         mutableStateOf(
             NewsDetailUiState.Loaded(
-                ArticleUiDetail(
+                Article(
+                    id = 1,
                     title = "Article title",
                     summary = "Article content",
                     imageUrl = "https://www.nasa.gov/wp-content/uploads/2025/03/lrc-2025-ocio-p-00643-3.jpg",

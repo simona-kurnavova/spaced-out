@@ -1,14 +1,16 @@
 package com.kurnavova.spacedout.features.newslist.ui
 
 import androidx.annotation.StringRes
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kurnavova.spacedout.data.connectivity.NetworkStatusProvider
-import com.kurnavova.spacedout.features.newslist.usecase.FetchArticlesUseCase
-import com.kurnavova.spacedout.features.ui.ArticleUseCaseResult
+import com.kurnavova.spacedout.domain.usecase.FetchArticlesUseCase
+import com.kurnavova.spacedout.domain.usecase.model.Article
+import com.kurnavova.spacedout.domain.usecase.model.ArticleUseCaseResult
+import com.kurnavova.spacedout.ui.mapper.toErrorMessage
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -62,10 +64,10 @@ class NewsListViewModel(
             _uiState.update {
                 when(result) {
                     is ArticleUseCaseResult.Error ->
-                        NewsListUiState.Error(result.errorMessage)
+                        NewsListUiState.Error(result.error.toErrorMessage())
 
                     is ArticleUseCaseResult.Success ->
-                        NewsListUiState.Loaded(result.data)
+                        NewsListUiState.Loaded(result.data.toPersistentList())
                 }
             }
         }
@@ -79,13 +81,6 @@ sealed interface NewsListUiState {
     data class Error(@StringRes val message: Int) : NewsListUiState
     data class Loaded(val articles: ImmutableList<Article>) : NewsListUiState
 }
-
-@Immutable
-data class Article(
-    val id: Int,
-    val title: String,
-    val summary: String,
-)
 
 sealed class NewsListAction {
     object RefreshNews : NewsListAction()

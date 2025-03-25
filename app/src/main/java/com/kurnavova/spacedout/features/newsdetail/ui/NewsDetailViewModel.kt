@@ -1,13 +1,14 @@
 package com.kurnavova.spacedout.features.newsdetail.ui
 
 import androidx.annotation.StringRes
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kurnavova.spacedout.data.connectivity.NetworkStatusProvider
-import com.kurnavova.spacedout.features.newsdetail.usecase.FetchArticleDetailUseCase
-import com.kurnavova.spacedout.features.ui.ArticleUseCaseResult
+import com.kurnavova.spacedout.domain.usecase.FetchArticleDetailUseCase
+import com.kurnavova.spacedout.domain.usecase.model.Article
+import com.kurnavova.spacedout.domain.usecase.model.ArticleUseCaseResult
+import com.kurnavova.spacedout.ui.mapper.toErrorMessage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -64,7 +65,7 @@ class NewsDetailViewModel(
             _uiState.update {
                 when (result) {
                     is ArticleUseCaseResult.Error ->
-                        NewsDetailUiState.Error(result.errorMessage)
+                        NewsDetailUiState.Error(result.error.toErrorMessage())
 
                     is ArticleUseCaseResult.Success ->
                         NewsDetailUiState.Loaded(result.data)
@@ -79,18 +80,8 @@ sealed interface NewsDetailUiState {
     object Idle : NewsDetailUiState
     object Loading : NewsDetailUiState
     data class Error(@StringRes val message: Int) : NewsDetailUiState
-    data class Loaded(val article: ArticleUiDetail) : NewsDetailUiState
+    data class Loaded(val article: Article) : NewsDetailUiState
 }
-
-@Immutable
-data class ArticleUiDetail(
-    val title: String,
-    val summary: String,
-    val imageUrl: String,
-    val url: String,
-    val authors: String,
-    val publishedAt: String,
-)
 
 sealed class NewsDetailAction {
     data class FetchArticle(val id: Int) : NewsDetailAction()

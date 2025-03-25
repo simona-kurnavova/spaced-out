@@ -1,7 +1,7 @@
-package com.kurnavova.spacedout.features.newsdetail.ui.mapper
+package com.kurnavova.spacedout.domain.usecase.mapper
 
 import com.kurnavova.spacedout.domain.model.ArticleDetail
-import com.kurnavova.spacedout.features.newsdetail.ui.ArticleUiDetail
+import com.kurnavova.spacedout.domain.usecase.model.Article
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -9,14 +9,15 @@ import java.time.format.FormatStyle
 import java.util.Locale
 
 /**
- * Maps an [ArticleDetail] to an [ArticleUiDetail].
+ * Maps an [ArticleDetail] to an [Article].
  */
-fun ArticleDetail.toArticleUiDetail(): ArticleUiDetail = ArticleUiDetail(
+fun ArticleDetail.toArticle(): Article = Article(
+    id = id,
     title = title,
     summary = summary.trim(),
     imageUrl = imageUrl,
     url = url,
-    authors = authors.joinToString(","),
+    authors = authors.joinToString(", "),
     publishedAt = formatDateTime(publishedAt)
 )
 

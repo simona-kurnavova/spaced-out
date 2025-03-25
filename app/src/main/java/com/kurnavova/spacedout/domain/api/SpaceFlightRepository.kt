@@ -2,7 +2,6 @@ package com.kurnavova.spacedout.domain.api
 
 import com.kurnavova.spacedout.domain.model.ApiResult
 import com.kurnavova.spacedout.domain.model.ArticleDetail
-import com.kurnavova.spacedout.domain.model.ArticleItem
 
 /**
  * Repository for fetching space flight news.
@@ -11,7 +10,7 @@ interface SpaceFlightRepository {
     /**
      * Returns a flow of articles.
      */
-    suspend fun getNews(): ApiResult<List<ArticleItem>>
+    suspend fun getNews(): ApiResult<List<ArticleDetail>>
 
     /**
      * Returns an article by its unique identifier.

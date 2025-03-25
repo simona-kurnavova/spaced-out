@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurnavova.spacedout.R
+import com.kurnavova.spacedout.domain.usecase.model.Article
 import com.kurnavova.spacedout.features.newslist.ui.components.ArticleCard
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 import kotlinx.collections.immutable.persistentListOf
@@ -103,7 +104,12 @@ private fun NewsListPreview() {
         id = 1,
         title = "Article title",
         summary = "Article summary",
+        imageUrl = "https://example.com/image.jpg",
+        url = "https://example.com",
+        authors = "Author 1, Author 2",
+        publishedAt = "02/03/1992"
     )
+
     val state = remember {
         mutableStateOf(
             NewsListUiState.Loaded(

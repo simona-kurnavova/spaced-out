@@ -8,9 +8,9 @@ import retrofit2.http.Query
 import retrofit2.http.Path
 
 /**
- * Represents a DAO for space flight article data.
+ * Represents a Retrofit API for space flight article data.
  */
-interface SpaceFlightDao {
+interface SpaceFlightApi {
     @GET("articles/")
     suspend fun getArticles(@Query("limit") limit: Int = LIMIT): Response<ArticleListResponse>
 

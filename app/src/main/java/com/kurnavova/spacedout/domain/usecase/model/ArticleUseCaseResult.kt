@@ -1,6 +1,4 @@
-package com.kurnavova.spacedout.features.ui
-
-import androidx.annotation.StringRes
+package com.kurnavova.spacedout.domain.usecase.model
 
 /**
  * Represents the result of a use case for article data.
@@ -16,7 +14,7 @@ sealed interface ArticleUseCaseResult<T> {
     /**
      * Represents an error result.
      *
-     * @param errorMessage The error message resource ID.
+     * @param error The type of error that occurred.
      */
-    data class Error<T>(@StringRes val errorMessage: Int) : ArticleUseCaseResult<T>
+    data class Error<T>(val error: UseCaseError) : ArticleUseCaseResult<T>
 }
