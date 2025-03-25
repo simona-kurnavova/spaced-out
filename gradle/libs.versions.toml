@@ -26,6 +26,7 @@ room = "2.6.1"
 paging = "3.3.6"
 ksp = "2.1.20-RC-1.0.30"
 work = "2.10.0"
+kotlinxCoroutinesTest = "1.9.0"
 
 [libraries]
 koin = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
@@ -51,7 +52,9 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }

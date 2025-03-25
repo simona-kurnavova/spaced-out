@@ -75,4 +75,5 @@ class ArticleRemoteMediator(
 }
 
 private const val OFFSET_PARAM = "offset"
+
 private const val TAG = "ArticleRemoteMediator"

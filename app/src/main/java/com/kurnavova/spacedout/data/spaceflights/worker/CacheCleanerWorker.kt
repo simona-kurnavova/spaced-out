@@ -69,6 +69,7 @@ class CacheCleanerWorker(appContext: Context, workerParams: WorkerParameters) : 
          */
         fun cancel(context: Context) {
             Log.d(TAG, "Cancelling worker")
+
             WorkManager.getInstance(context).cancelUniqueWork(WORK_NAME)
         }
     }

@@ -10,6 +10,7 @@ import com.kurnavova.spacedout.domain.api.CleanupManager
 class CleanupManagerImpl(
     private val app: Application
 ) : CleanupManager {
+
     /**
      * Schedule a cleanup task.
      */
