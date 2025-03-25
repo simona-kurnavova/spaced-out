@@ -14,7 +14,7 @@ fun <T, R> ApiResult<T>.toArticleUseCaseResult(
     convertData: (T) -> R
 ): ArticleUseCaseResult<R> = when(this) {
     is ApiResult.Success -> ArticleUseCaseResult.Success(convertData(data))
-    is ApiResult.Error -> ArticleUseCaseResult<R>.Error(toErrorMessage())
+    is ApiResult.Error -> ArticleUseCaseResult.Error(toErrorMessage())
 }
 
 fun ApiResult.Error.toErrorMessage(): UseCaseError = when(type) {

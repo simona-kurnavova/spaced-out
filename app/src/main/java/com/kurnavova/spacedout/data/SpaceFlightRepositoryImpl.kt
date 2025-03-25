@@ -1,5 +1,6 @@
-package com.kurnavova.spacedout.data.network
+package com.kurnavova.spacedout.data
 
+import com.kurnavova.spacedout.data.network.SpaceFlightApi
 import com.kurnavova.spacedout.data.network.mapper.toApiResult
 import com.kurnavova.spacedout.data.network.mapper.toDomain
 import com.kurnavova.spacedout.domain.api.SpaceFlightRepository

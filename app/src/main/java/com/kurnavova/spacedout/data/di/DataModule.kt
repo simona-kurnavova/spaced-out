@@ -1,8 +1,8 @@
-package com.kurnavova.spacedout.data.network.di
+package com.kurnavova.spacedout.data.di
 
 import com.kurnavova.spacedout.data.network.SpaceFlightApi
 import com.kurnavova.spacedout.data.network.SpaceFlightApiInitializer
-import com.kurnavova.spacedout.data.network.SpaceFlightRepositoryImpl
+import com.kurnavova.spacedout.data.SpaceFlightRepositoryImpl
 import com.kurnavova.spacedout.domain.api.SpaceFlightRepository
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.bind
