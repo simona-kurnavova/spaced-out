@@ -90,5 +90,5 @@ internal class SpaceFlightRepositoryImpl(
 
 private const val TAG = "SpaceFlightRepositoryImpl"
 
-private const val PAGE_SIZE = 5
+private const val PAGE_SIZE = 20
 private const val CLEANUP_THRESHOLD_DAYS = 30L

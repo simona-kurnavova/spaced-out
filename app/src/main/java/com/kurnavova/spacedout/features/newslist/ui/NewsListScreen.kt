@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -61,7 +62,6 @@ private fun NewsListScreen(
                 )
                 return@Column
             }
-
             is LoadState.Error -> if (articles.itemCount > 0) {
                 // There was an error in loading the data, but we are still showing some data.
                 OfflineBanner(refresh = articles::refresh)
@@ -82,11 +82,13 @@ private fun NewsListScreen(
         LazyColumn {
             items(articles.itemCount) { index ->
                 articles[index]?.let {
-                    ListArticle(
-                        article = it,
-                        showDivider = index < articles.itemCount - 1,
-                        showDetail = { onAction(NewsListAction.ShowDetail(it.id)) }
-                    )
+                    key(it.id) {
+                        ListArticle(
+                            article = it,
+                            showDivider = index < articles.itemCount - 1,
+                            showDetail = { onAction(NewsListAction.ShowDetail(it.id)) }
+                        )
+                    }
                 }
             }
 

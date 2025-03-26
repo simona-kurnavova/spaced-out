@@ -56,7 +56,7 @@ fun AlertBanner(
     }
 }
 
-private const val PADDING_INTERNAL = 12
+private const val PADDING_INTERNAL = 8
 
 @Preview
 @Composable
