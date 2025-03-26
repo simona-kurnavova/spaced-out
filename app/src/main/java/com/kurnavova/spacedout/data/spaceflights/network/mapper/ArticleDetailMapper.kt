@@ -14,6 +14,7 @@ internal fun ArticleResponse.toDomain(): ArticleDetail {
         imageUrl = imageUrl,
         url = url,
         authors = authors.map { it.name }, // Extracts only author names
-        publishedAt = publishedAt
+        publishedAt = publishedAt,
+        newsSite = newsSite
     )
 }

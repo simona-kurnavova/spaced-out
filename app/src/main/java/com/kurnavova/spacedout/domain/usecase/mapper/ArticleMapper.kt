@@ -18,7 +18,8 @@ internal fun ArticleDetail.toArticle(): Article = Article(
     imageUrl = imageUrl,
     url = url,
     authors = authors.joinToString(", "), // For simplicity, let's do this here (should be done in ui layer thought)
-    publishedAt = formatDateTime(publishedAt)
+    publishedAt = formatDateTime(publishedAt),
+    newsSite = newsSite
 )
 
 private fun formatDateTime(isoDateTime: String, locale: Locale = Locale.getDefault()): String {

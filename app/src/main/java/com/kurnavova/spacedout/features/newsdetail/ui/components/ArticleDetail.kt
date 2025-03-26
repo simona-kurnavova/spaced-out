@@ -1,5 +1,6 @@
 package com.kurnavova.spacedout.features.newsdetail.ui.components
 
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kurnavova.spacedout.R
@@ -23,7 +25,7 @@ import com.kurnavova.spacedout.ui.components.text.ClickableText
 import com.kurnavova.spacedout.ui.components.text.HighlightedText
 import com.kurnavova.spacedout.ui.components.text.FadedSubtitle
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
-import com.kurnavova.spacedout.ui.utils.IntentUtils
+import androidx.core.net.toUri
 
 @Composable
 fun ArticleDetail(
@@ -69,13 +71,26 @@ fun ArticleDetail(
 
         ClickableText(
             text = stringResource(R.string.news_detail_read_article_here),
-            onClick = { IntentUtils.openBrowser(article.url, context) },
+            onClick = {
+                val customTabsIntent = CustomTabsIntent.Builder().build()
+                customTabsIntent.launchUrl(context, article.url.toUri())
+            },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+
+        Spacer(modifier = Modifier.height(SPACE_UNDER_BUTTON.dp))
+
+        Text(
+            text = stringResource(R.string.news_site_label, article.newsSite),
+            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
     }
 }
 
 private const val SPACE_BETWEEN_ITEMS = 16
+private const val SPACE_UNDER_BUTTON = 8
 private const val AUTHOR_PADDING = 8
 private const val IMAGE_PADDING = 8
 
@@ -91,7 +106,8 @@ private fun ArticleDetailPreview() {
                 imageUrl = "https://example.com/image.jpg",
                 authors = "Author",
                 publishedAt = "2022-01-01",
-                url = "https://example.com"
+                url = "https://example.com",
+                newsSite = "NASA"
             )
         )
     }

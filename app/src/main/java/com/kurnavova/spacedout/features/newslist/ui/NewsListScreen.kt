@@ -132,7 +132,8 @@ private fun NewsListPreview() {
         imageUrl = "https://example.com/image.jpg",
         url = "https://example.com",
         authors = "Author 1, Author 2",
-        publishedAt = "02/03/1992"
+        publishedAt = "02/03/1992",
+        newsSite = "NASA"
     )
 
     val articles = flow {

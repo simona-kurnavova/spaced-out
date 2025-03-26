@@ -14,6 +14,7 @@ internal fun ArticleResponse.toEntity(): ArticleEntity {
         url = url,
         summary = summary,
         author = authors.map { it.name },
-        date = publishedAt
+        date = publishedAt,
+        newsSite = newsSite
     )
 }

@@ -11,4 +11,5 @@ data class Article(
     val url: String,
     val authors: String,
     val publishedAt: String,
+    val newsSite: String,
 )

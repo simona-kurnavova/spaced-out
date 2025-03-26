@@ -76,6 +76,9 @@ dependencies {
     // WorkManager
     implementation(libs.androidx.work)
 
+    // CCT (browser)
+    implementation(libs.browser)
+
     // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

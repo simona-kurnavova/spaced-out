@@ -20,6 +20,8 @@
     <string name="news_detail_read_article_here">Read the whole article here</string>
     <!-- Authors and date time of the news article. %1$s will be replaced by list of authors and %2$s by date and time of article. -->
     <string name="news_detail_authors_datetime">%1$s, %2$s</string>
+    <!-- News site, where %1$s will be replaced by actual news site. -->
+    <string name="news_site_label">News site: %1$s</string>
 
     <!-- News list screen -->
     <!-- Read more - clickable text button leading to article detail. -->

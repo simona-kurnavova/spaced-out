@@ -24,7 +24,8 @@ internal data class ArticleEntity(
     val url: String,
     val imageUrl: String,
     val author: List<String>,
-    val date: String
+    val date: String,
+    val newsSite: String,
 )
 
 private const val TABLE_NAME = "articles"

@@ -33,7 +33,10 @@ internal data class ArticleResponse(
     val authors: List<Author>,
 
     @SerializedName("published_at")
-    val publishedAt: String
+    val publishedAt: String,
+
+    @SerializedName("news_site")
+    val newsSite: String,
 )
 
 /**
@@ -43,5 +46,5 @@ internal data class ArticleResponse(
  */
 internal data class Author(
     @SerializedName("name")
-    val name: String
+    val name: String,
 )

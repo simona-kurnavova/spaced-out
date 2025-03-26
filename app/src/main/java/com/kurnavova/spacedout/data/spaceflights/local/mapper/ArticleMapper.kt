@@ -14,6 +14,7 @@ internal fun ArticleEntity.toDomain(): ArticleDetail {
         imageUrl = imageUrl,
         url = url,
         authors = author,
-        publishedAt = date
+        publishedAt = date,
+        newsSite = newsSite
     )
 }
