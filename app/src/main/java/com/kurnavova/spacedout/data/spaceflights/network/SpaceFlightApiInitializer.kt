@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Initializes a Retrofit API instance.
  */
-object SpaceFlightApiInitializer {
+internal object SpaceFlightApiInitializer {
 
     /**
      * Creates a Retrofit instance.

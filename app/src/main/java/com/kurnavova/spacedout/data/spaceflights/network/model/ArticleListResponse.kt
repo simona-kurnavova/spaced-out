@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
  * @property next The URL of the next page.
  * @property results List of articles.
  */
-data class ArticleListResponse(
+internal data class ArticleListResponse(
     @SerializedName("previous")
     val previous: String?,
 

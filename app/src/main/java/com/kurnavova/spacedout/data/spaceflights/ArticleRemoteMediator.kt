@@ -13,7 +13,6 @@ import com.kurnavova.spacedout.data.spaceflights.network.SpaceFlightApi
 import com.kurnavova.spacedout.data.spaceflights.network.model.ArticleResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.concurrent.atomics.AtomicReference
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
 
 /**
@@ -23,45 +22,70 @@ import kotlin.concurrent.atomics.ExperimentalAtomicApi
  * @property articleDao The ArticleDao instance.
  */
 @OptIn(ExperimentalPagingApi::class, ExperimentalAtomicApi::class)
-class ArticleRemoteMediator(
+internal class ArticleRemoteMediator(
     private val api: SpaceFlightApi,
     private val articleDao: ArticleDao
 ) : RemoteMediator<Int, ArticleEntity>() {
-    private var lastOffset: AtomicReference<Int> = AtomicReference(1)
 
-    // Note: There should be some better error handling here - custom exceptions, etc.
+    // Note: There should be some better error handling here - custom exceptions that can be mapped in UI to localized strings, etc.
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, ArticleEntity>
     ): MediatorResult {
         return try {
             val offset = when (loadType) {
-                LoadType.REFRESH -> 1
+                LoadType.REFRESH -> 0 // Refreshing, return 0
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> lastOffset.load() + state.config.pageSize
+                LoadType.APPEND -> when {
+                    state.pages.isEmpty() -> 0
+                    else -> {
+                        val lastPage = state.pages.last()
+                        lastPage.data.size + (lastPage.prevKey ?: 0) + 1
+                    }
+                }
             }
 
-            val response = api.getPagedArticles(offset = offset, limit = state.config.pageSize)
-            val result = response.body()
+            val (success, next) = loadAndCacheArticles(offset, state.config.pageSize)
 
-            if (!response.isSuccessful || result == null) {
-                Log.d(TAG, "API Error: ${response.code()}")
-
-                return MediatorResult.Error(Exception("API Error: ${response.code()}"))
+            return if (!success) {
+                MediatorResult.Error(Exception("API Error"))
+            } else {
+                MediatorResult.Success(endOfPaginationReached = next == null)
             }
-
-            // Cache articles
-            cacheArticles(result.results)
-            lastOffset.store(offset)
-
-            val endOfPaginationReached = result.next.extractOffsetOrNull() == null
-
-            MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (e: Exception) {
+            Log.d(TAG, "Error: $e")
             MediatorResult.Error(e)
         }
     }
 
+    /**
+     * Loads articles from the API and caches them in the database.
+     *
+     * @return pair of success and next offset.
+     */
+    private suspend fun loadAndCacheArticles(offset: Int, pageSize: Int): Pair<Boolean, Int?> {
+        val response = api.getPagedArticles(offset = offset, limit = pageSize)
+        val result = response.body()
+
+        if (!response.isSuccessful || result == null) {
+            Log.d(TAG, "API Error: ${response.code()}")
+            return false to null
+        } else {
+            // Cache articles
+            cacheArticles(result.results)
+
+            // Get next offset
+            val next = result.next.extractOffsetOrNull()
+            return true to next
+        }
+    }
+
+    /**
+     * Caches the articles in the database. It will replace in case article exists
+     * (so that it mirrors any potential BE changes)
+     *
+     * @param articles The list of articles to cache.
+     */
     private suspend fun cacheArticles(articles: List<ArticleResponse>) {
         withContext(Dispatchers.IO) {
             Log.d(TAG, "Caching articles of size: ${articles.size}")
@@ -75,5 +99,4 @@ class ArticleRemoteMediator(
 }
 
 private const val OFFSET_PARAM = "offset"
-
 private const val TAG = "ArticleRemoteMediator"

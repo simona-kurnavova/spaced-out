@@ -6,7 +6,7 @@ import com.kurnavova.spacedout.domain.model.ArticleDetail
 /**
  * Converts API response to domain model.
  */
-fun ArticleResponse.toDomain(): ArticleDetail {
+internal fun ArticleResponse.toDomain(): ArticleDetail {
     return ArticleDetail(
         id = id,
         title = title,

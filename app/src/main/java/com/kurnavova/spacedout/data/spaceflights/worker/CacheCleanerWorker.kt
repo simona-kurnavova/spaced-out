@@ -16,7 +16,8 @@ import java.util.concurrent.TimeUnit
 /**
  * Worker that periodically cleans article cache.
  */
-class CacheCleanerWorker(appContext: Context, workerParams: WorkerParameters) : CoroutineWorker(appContext, workerParams), KoinComponent {
+internal class CacheCleanerWorker(appContext: Context, workerParams: WorkerParameters) :
+    CoroutineWorker(appContext, workerParams), KoinComponent {
 
     private val repository: SpaceFlightRepositoryImpl by inject()
 

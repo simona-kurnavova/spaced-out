@@ -12,18 +12,18 @@ import androidx.room.PrimaryKey
  * @property summary Summary of the article.
  * @property url URL of the article.
  * @property imageUrl URL of the image.
- * @property author Comma-separated list of authors.
+ * @property author List of authors.
  * @property date Date in ISO 8601 format.
  */
 @Entity(tableName = TABLE_NAME, indices = [Index(value = ["date"])])
-data class ArticleEntity(
+internal data class ArticleEntity(
     @PrimaryKey
     val id: Int,
     val title: String,
     val summary: String,
     val url: String,
     val imageUrl: String,
-    val author: String,
+    val author: List<String>,
     val date: String
 )
 

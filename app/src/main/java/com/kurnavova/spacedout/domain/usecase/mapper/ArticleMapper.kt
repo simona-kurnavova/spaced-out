@@ -11,13 +11,13 @@ import java.util.Locale
 /**
  * Maps an [ArticleDetail] to an [Article].
  */
-fun ArticleDetail.toArticle(): Article = Article(
+internal fun ArticleDetail.toArticle(): Article = Article(
     id = id,
     title = title,
     summary = summary.trim(),
     imageUrl = imageUrl,
     url = url,
-    authors = authors.joinToString(", "), // For simplicity, let's do this here.
+    authors = authors.joinToString(", "), // For simplicity, let's do this here (should be done in ui layer thought)
     publishedAt = formatDateTime(publishedAt)
 )
 

@@ -13,7 +13,7 @@ import com.google.gson.annotations.SerializedName
  * @property authors The list of authors of the article.
  * @property publishedAt The date when the article was published.
  */
-data class ArticleResponse(
+internal data class ArticleResponse(
     @SerializedName("id")
     val id: Int,
 
@@ -41,7 +41,7 @@ data class ArticleResponse(
  *
  * @property name The name of the author.
  */
-data class Author(
+internal data class Author(
     @SerializedName("name")
     val name: String
 )

@@ -133,7 +133,7 @@ class ArticleDaoTest {
                 summary = "Summary $it",
                 url = "http://example.com/$it",
                 imageUrl = "http://example.com/image$it.jpg",
-                author = "$it",
+                author = "${it}",
                 date = "2025-03-${25 - it}",
             )
         }

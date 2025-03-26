@@ -1,5 +1,6 @@
 package com.kurnavova.spacedout.features.newsdetail.ui
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
@@ -57,8 +58,11 @@ class NewsDetailViewModel(
                     is ArticleUseCaseResult.Error ->
                         NewsDetailUiState.Error(result.error.toErrorMessage())
 
-                    is ArticleUseCaseResult.Success ->
+                    is ArticleUseCaseResult.Success -> {
+                        Log.d("NewsDetailViewModel", "ArticleUseCaseResult.Success ${result.data}")
                         NewsDetailUiState.Loaded(result.data)
+
+                    }
                 }
            }
        }

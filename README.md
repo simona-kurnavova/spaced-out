@@ -12,7 +12,11 @@ Retrofit, OkHttp
 
 Koin
 
-Kotlin Coroutines, Flow
+Kotlin Coroutines, Flows
+
+Room
+
+Work Manager
 
 ## License
 MIT License

@@ -10,7 +10,7 @@ import retrofit2.http.Path
 /**
  * Represents a Retrofit API for space flight article data.
  */
-interface SpaceFlightApi {
+internal interface SpaceFlightApi {
     /**
      * Fetches a paged list of articles.
      *

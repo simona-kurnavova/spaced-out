@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter
  *
  * @property spaceFlightApi The DAO for space flight data.
  */
-class SpaceFlightRepositoryImpl(
+internal class SpaceFlightRepositoryImpl(
     private val spaceFlightApi: SpaceFlightApi,
     private val articleDao: ArticleDao
 ) : SpaceFlightRepository {
@@ -90,5 +90,5 @@ class SpaceFlightRepositoryImpl(
 
 private const val TAG = "SpaceFlightRepositoryImpl"
 
-private const val PAGE_SIZE = 10
+private const val PAGE_SIZE = 5
 private const val CLEANUP_THRESHOLD_DAYS = 30L

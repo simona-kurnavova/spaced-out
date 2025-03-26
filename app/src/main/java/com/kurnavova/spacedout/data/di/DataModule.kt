@@ -13,7 +13,10 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
-internal val dataModule = module {
+/**
+ * Module for data layer dependencies.
+ */
+val dataModule = module {
     // Remote api
     single<SpaceFlightApi> { SpaceFlightApiInitializer.create() }
 
@@ -22,7 +25,7 @@ internal val dataModule = module {
     factory<ArticleDao> { get<ArticleDatabase>().articleDao }
 
     // Cleanup
-    factoryOf(::CleanupManagerImpl) bind CleanupManager::class
+    factory { CleanupManagerImpl } bind CleanupManager::class
 
     // Repository implementation
     factoryOf(::SpaceFlightRepositoryImpl) bind SpaceFlightRepository::class

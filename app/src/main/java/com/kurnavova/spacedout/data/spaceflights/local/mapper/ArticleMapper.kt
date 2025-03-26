@@ -6,14 +6,14 @@ import com.kurnavova.spacedout.domain.model.ArticleDetail
 /**
  * Converts a database entity to a domain model.
  */
-fun ArticleEntity.toDomain(): ArticleDetail {
+internal fun ArticleEntity.toDomain(): ArticleDetail {
     return ArticleDetail(
         id = id,
         title = title,
         summary = summary,
         imageUrl = imageUrl,
         url = url,
-        authors = listOf(author),
+        authors = author,
         publishedAt = date
     )
 }

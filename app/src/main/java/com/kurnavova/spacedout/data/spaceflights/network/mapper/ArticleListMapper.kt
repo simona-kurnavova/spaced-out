@@ -6,5 +6,5 @@ import com.kurnavova.spacedout.domain.model.ArticleDetail
 /**
  * Converts API response list to domain model list.
  */
-fun ArticleListResponse.toDomain(): List<ArticleDetail> =
+internal fun ArticleListResponse.toDomain(): List<ArticleDetail> =
     results.map { it.toDomain() }

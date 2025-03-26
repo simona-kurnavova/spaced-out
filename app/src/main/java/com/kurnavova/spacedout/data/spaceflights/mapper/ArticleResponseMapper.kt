@@ -4,16 +4,16 @@ import com.kurnavova.spacedout.data.spaceflights.local.model.ArticleEntity
 import com.kurnavova.spacedout.data.spaceflights.network.model.ArticleResponse
 
 /**
- * Maps [ArticleResponse] to [ArticleEntity].
+ * Maps [ArticleResponse] to [ArticleEntity] (from remote to local).
  */
-fun ArticleResponse.toEntity(): ArticleEntity {
+internal fun ArticleResponse.toEntity(): ArticleEntity {
     return ArticleEntity(
         id = id,
         title = title,
         imageUrl = imageUrl,
         url = url,
         summary = summary,
-        author = authors.joinToString(", ") { it.name },
+        author = authors.map { it.name },
         date = publishedAt
     )
 }

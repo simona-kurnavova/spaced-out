@@ -9,7 +9,7 @@ import retrofit2.Response
  *
  * @param processBody The function to process the body of the response.
  */
-fun <T, R> Response<T>.toApiResult(processBody: (T) -> R): ApiResult<R> {
+internal fun <T, R> Response<T>.toApiResult(processBody: (T) -> R): ApiResult<R> {
     return if (this.isSuccessful) {
         body()
             ?.let { ApiResult.Success(processBody(it)) }

@@ -37,6 +37,6 @@ class App : Application(){
 
     private fun KoinApplication.scheduleCleanup() {
         // Schedule a worker to clean up old data
-        get<ScheduleCleanupUseCase>().scheduleCleanUp()
+        get<ScheduleCleanupUseCase>().scheduleCleanUp(this@App)
     }
 }

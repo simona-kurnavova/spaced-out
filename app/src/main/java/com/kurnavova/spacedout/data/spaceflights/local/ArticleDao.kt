@@ -8,7 +8,7 @@ import com.kurnavova.spacedout.data.spaceflights.local.model.ArticleEntity
  * Data access object for articles.
  */
 @Dao
-interface ArticleDao {
+internal interface ArticleDao {
     /**
      * Returns a [PagingSource] of articles.
      */
