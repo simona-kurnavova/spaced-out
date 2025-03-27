@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kurnavova.spacedout.R
 import com.kurnavova.spacedout.ui.components.card.AlertBanner
+import com.kurnavova.spacedout.ui.preview.ComponentPreview
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 
 @Composable
@@ -28,7 +28,7 @@ fun OfflineBanner(
 
 private const val BANNER_PADDING = 12
 
-@Preview
+@ComponentPreview
 @Composable
 private fun OfflineBannerPreview() {
     SpacedOutTheme {

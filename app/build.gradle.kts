@@ -76,6 +76,12 @@ dependencies {
     // WorkManager
     implementation(libs.androidx.work)
 
+    // CCT (browser)
+    implementation(libs.browser)
+
+    // Swipe to refresh
+    implementation(libs.accompanist.swiperefresh)
+
     // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -92,7 +98,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
 
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation(libs.kotlinx.coroutines.test)

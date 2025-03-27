@@ -1,6 +1,5 @@
 package com.kurnavova.spacedout.features.newsdetail.ui
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,11 +14,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kurnavova.spacedout.domain.usecase.model.Article
 import com.kurnavova.spacedout.features.newsdetail.ui.components.ArticleDetail
+import com.kurnavova.spacedout.ui.preview.ComponentPreview
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -69,8 +68,7 @@ private fun NewsDetailScreen(
 
 private const val SCREEN_PADDING = 12
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@ComponentPreview
 @Composable
 private fun NewsDetailScreenPreview() {
     val state = remember {

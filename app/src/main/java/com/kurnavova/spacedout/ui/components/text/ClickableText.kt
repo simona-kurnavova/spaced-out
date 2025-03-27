@@ -1,6 +1,5 @@
 package com.kurnavova.spacedout.ui.components.text
 
-import android.content.res.Configuration
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -11,8 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kurnavova.spacedout.ui.preview.ComponentPreview
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 
 @Composable
@@ -49,8 +48,7 @@ private const val ITEM_CORNER_RADIUS = 12
 private const val INSIDE_PADDING = 12
 private const val BORDER_WIDTH = 1
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@ComponentPreview
 @Composable
 private fun ClickableTextPreview() {
     SpacedOutTheme {

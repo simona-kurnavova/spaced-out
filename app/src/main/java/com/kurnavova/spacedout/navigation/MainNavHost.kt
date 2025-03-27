@@ -9,7 +9,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -19,7 +18,6 @@ import com.kurnavova.spacedout.features.newsdetail.ui.NewsDetailScreenRoot
 import com.kurnavova.spacedout.features.newslist.ui.NewsListScreenRoot
 import com.kurnavova.spacedout.navigation.route.NewsDetail
 import com.kurnavova.spacedout.navigation.route.NewsList
-import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 
 @Composable
 fun MainNavHost(modifier: Modifier = Modifier) {
@@ -63,13 +61,5 @@ fun MainNavHost(modifier: Modifier = Modifier) {
                 NewsDetailScreenRoot(id = route.id)
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun MainNavHostPreview() {
-    SpacedOutTheme {
-        MainNavHost()
     }
 }

@@ -1,6 +1,5 @@
 package com.kurnavova.spacedout.ui.components.image
 
-import android.content.res.Configuration
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -15,9 +14,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kurnavova.spacedout.R
+import com.kurnavova.spacedout.ui.preview.ComponentPreview
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 
 @Composable
@@ -45,8 +44,7 @@ fun CircularIcon(
 
 private const val ICON_PADDING = 8
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@ComponentPreview
 @Composable
 private fun CircularIconPreview() {
     SpacedOutTheme {

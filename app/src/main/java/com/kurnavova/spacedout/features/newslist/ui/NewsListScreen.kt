@@ -1,7 +1,7 @@
 package com.kurnavova.spacedout.features.newslist.ui
 
-import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,23 +10,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.key
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.kurnavova.spacedout.R
 import com.kurnavova.spacedout.domain.usecase.model.Article
 import com.kurnavova.spacedout.features.newslist.ui.components.ErrorState
 import com.kurnavova.spacedout.features.newslist.ui.components.ListArticle
 import com.kurnavova.spacedout.features.newslist.ui.components.OfflineBanner
+import com.kurnavova.spacedout.features.newslist.ui.utils.isAppendError
+import com.kurnavova.spacedout.features.newslist.ui.utils.isAppendLoad
+import com.kurnavova.spacedout.features.newslist.ui.utils.isInitialLoad
+import com.kurnavova.spacedout.features.newslist.ui.utils.isInitialLoadError
+import com.kurnavova.spacedout.features.newslist.ui.utils.isOfflineWithData
+import com.kurnavova.spacedout.features.newslist.ui.utils.isRefreshing
+import com.kurnavova.spacedout.ui.preview.ComponentPreview
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -54,63 +60,51 @@ private fun NewsListScreen(
             .fillMaxSize()
             .padding(horizontal = SCREEN_PADDING.dp)
     ) {
-        when(articles.loadState.refresh) {
-            // Data are being loaded, show loading in the middle of the screen.
-             is LoadState.Loading -> {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
-                return@Column
-            }
-            is LoadState.Error -> if (articles.itemCount > 0) {
-                // There was an error in loading the data, but we are still showing some data.
-                OfflineBanner(refresh = articles::refresh)
-            } else {
-                // There was an error loading the data and there is no data to show.
-                ErrorState(
-                    message = stringResource(R.string.load_data_failed),
-                    retry = articles::refresh,
-                    modifier = Modifier
-                        .padding(vertical = SPACE_BETWEEN_ITEMS.dp)
-                        .fillMaxWidth()
-                )
-                return@Column
-            }
-            else -> Unit
-        }
+        TopLevelStatusIndicator(
+            isInitialLoadError = articles.isInitialLoadError,
+            isInitialLoad = articles.isInitialLoad,
+            isOfflineWithData = articles.isOfflineWithData,
+            refresh = articles::refresh,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
 
-        LazyColumn {
-            items(articles.itemCount) { index ->
-                articles[index]?.let {
-                    key(it.id) {
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = articles.isRefreshing),
+            swipeEnabled = true,
+            onRefresh = { articles.refresh() }
+        ) {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(SPACE_BETWEEN_ARTICLES.dp),
+            ) {
+                items(articles.itemCount) { index ->
+                    articles[index]?.let {
                         ListArticle(
                             article = it,
-                            showDivider = index < articles.itemCount - 1,
                             showDetail = { onAction(NewsListAction.ShowDetail(it.id)) }
                         )
                     }
                 }
-            }
 
-            item {
-                AnimatedVisibility(visible = articles.loadState.append is LoadState.Loading) {
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .padding(vertical = LOADING_PADDING.dp)
-                        )
+                item {
+                    AnimatedVisibility(visible = articles.isAppendLoad) {
+                        Box(modifier = Modifier.fillMaxWidth()) {
+                            CircularProgressIndicator(
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                                    .padding(vertical = LOADING_PADDING.dp)
+                            )
+                        }
                     }
                 }
-            }
 
-            if (articles.loadState.append is LoadState.Error) {
-                item { // Append failed, show error state at the end of the list
-                    ErrorState(
-                        message = stringResource(R.string.connect_and_try_again),
-                        retry = articles::retry,
-                        modifier = Modifier.padding(vertical = SPACE_BETWEEN_ITEMS.dp)
-                    )
+                if (articles.isAppendError) {
+                    item { // Append failed, show error state at the end of the list
+                        ErrorState(
+                            message = stringResource(R.string.connect_and_try_again),
+                            retry = articles::retry,
+                            modifier = Modifier.padding(vertical = SPACE_BETWEEN_ITEMS.dp)
+                        )
+                    }
                 }
             }
         }
@@ -118,11 +112,45 @@ private fun NewsListScreen(
 }
 
 private const val SCREEN_PADDING = 12
+private const val SPACE_BETWEEN_ARTICLES = 8
 private const val SPACE_BETWEEN_ITEMS = 12
 private const val LOADING_PADDING = 18
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@Composable
+private fun TopLevelStatusIndicator(
+    isInitialLoadError: Boolean,
+    isInitialLoad: Boolean,
+    isOfflineWithData: Boolean,
+    refresh: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    when {
+        // There was an error loading the data and there is no data to show.
+        isInitialLoadError -> {
+            ErrorState(
+                message = stringResource(R.string.load_data_failed),
+                retry = refresh,
+                modifier = modifier
+                    .padding(vertical = SPACE_BETWEEN_ITEMS.dp)
+                    .fillMaxWidth()
+            )
+        }
+
+        // Data are being loaded, show loading in the middle of the screen.
+        isInitialLoad -> {
+            CircularProgressIndicator(modifier = modifier)
+        }
+
+        // There was an error in loading the data, but we are still showing some data.
+        isOfflineWithData ->
+            OfflineBanner(
+                refresh = refresh,
+                modifier = modifier
+            )
+    }
+}
+
+@ComponentPreview
 @Composable
 private fun NewsListPreview() {
     val article = Article(
@@ -135,9 +163,8 @@ private fun NewsListPreview() {
         publishedAt = "02/03/1992"
     )
 
-    val articles = flow {
-        emit(PagingData.from(listOf(article, article, article)))
-    }.collectAsLazyPagingItems()
+    val articles = MutableStateFlow(PagingData.from(List(3) { article.copy(id = it) }))
+        .collectAsLazyPagingItems()
 
     SpacedOutTheme {
         NewsListScreen(

@@ -34,18 +34,26 @@ internal class ArticleRemoteMediator(
     ): MediatorResult {
         return try {
             val offset = when (loadType) {
-                LoadType.REFRESH -> 0 // Refreshing, return 0
-                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.APPEND -> when {
-                    state.pages.isEmpty() -> 0
-                    else -> {
-                        val lastPage = state.pages.last()
-                        lastPage.data.size + (lastPage.prevKey ?: 0) + 1
-                    }
-                }
+                LoadType.REFRESH -> 0 // Refreshing, start with 0
+                LoadType.PREPEND ->
+                    return MediatorResult.Success(endOfPaginationReached = true)
+                LoadType.APPEND ->
+                    state.pages.lastOrNull()
+                        ?.let {
+                            if (it.data.isEmpty()) {
+                                0
+                            } else {
+                                it.data.size + it.itemsBefore + 1
+                            }
+                        } ?: 0
             }
 
-            val (success, next) = loadAndCacheArticles(offset, state.config.pageSize)
+            val limit = when (offset) {
+                0 -> state.config.initialLoadSize
+                else -> state.config.pageSize
+            }
+
+            val (success, next) = loadAndCacheArticles(offset, limit)
 
             return if (!success) {
                 MediatorResult.Error(Exception("API Error"))

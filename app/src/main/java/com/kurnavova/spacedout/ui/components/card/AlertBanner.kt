@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kurnavova.spacedout.ui.components.text.ClickableText
+import com.kurnavova.spacedout.ui.preview.ComponentPreview
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 
 @Composable
@@ -39,7 +39,7 @@ fun AlertBanner(
                 text = text,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 style = MaterialTheme.typography.bodyLarge.copy(textAlign = TextAlign.Center),
-                modifier = modifier
+                modifier = Modifier
                     .padding(top = PADDING_INTERNAL.dp)
                     .padding(horizontal = PADDING_INTERNAL.dp)
             )
@@ -58,7 +58,7 @@ fun AlertBanner(
 
 private const val PADDING_INTERNAL = 8
 
-@Preview
+@ComponentPreview
 @Composable
 private fun AlertBannerPreview() {
     SpacedOutTheme {

@@ -62,16 +62,5 @@ internal class CacheCleanerWorker(appContext: Context, workerParams: WorkerParam
                 request
             )
         }
-
-        /**
-         * Cancels the worker.
-         *
-         * @param context The context to use.
-         */
-        fun cancel(context: Context) {
-            Log.d(TAG, "Cancelling worker")
-
-            WorkManager.getInstance(context).cancelUniqueWork(WORK_NAME)
-        }
     }
 }

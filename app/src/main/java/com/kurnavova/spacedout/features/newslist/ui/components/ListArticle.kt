@@ -1,41 +1,28 @@
 package com.kurnavova.spacedout.features.newslist.ui.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.kurnavova.spacedout.domain.usecase.model.Article
 import com.kurnavova.spacedout.features.newslist.ui.components.item.ArticleCard
+import com.kurnavova.spacedout.ui.preview.ComponentPreview
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 
 @Composable
 fun ListArticle(
     article: Article,
-    showDivider: Boolean,
     showDetail: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
-        ArticleCard(
-            title = article.title,
-            summary = article.summary,
-            onReadMoreAction = showDetail,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        if (showDivider) {
-            Spacer(modifier = Modifier.height(DIVIDER_HEIGHT.dp))
-        }
-    }
+    ArticleCard(
+        title = article.title,
+        summary = article.summary,
+        onReadMoreAction = showDetail,
+        modifier = modifier.fillMaxWidth()
+    )
 }
 
-private const val DIVIDER_HEIGHT = 12
-
-@Preview
+@ComponentPreview
 @Composable
 private fun ListArticlePreview() {
     SpacedOutTheme {
@@ -49,7 +36,6 @@ private fun ListArticlePreview() {
                 authors = "Author 1, Author 2",
                 publishedAt = "02/03/1992"
             ),
-            showDivider = true,
             showDetail = {}
         )
     }

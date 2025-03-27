@@ -10,10 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kurnavova.spacedout.R
 import com.kurnavova.spacedout.ui.components.text.ClickableText
+import com.kurnavova.spacedout.ui.preview.ComponentPreview
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 
 @Composable
@@ -45,7 +45,7 @@ fun ErrorState(
 
 private const val SPACE_BETWEEN_ITEMS = 12
 
-@Preview(showBackground = true)
+@ComponentPreview
 @Composable
 private fun ErrorStatePreview() {
     SpacedOutTheme {

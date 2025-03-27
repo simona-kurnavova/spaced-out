@@ -17,20 +17,19 @@ internal object SpaceFlightApiInitializer {
      * @return The Retrofit instance.
      */
     fun create(): SpaceFlightApi {
+        val interceptor = HttpLoggingInterceptor()
+            .setLevel(HttpLoggingInterceptor.Level.BODY)
+
         val client = OkHttpClient.Builder()
             .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+            .addInterceptor(interceptor)
             .build()
-
-        val interceptor = HttpLoggingInterceptor()
-            .setLevel(HttpLoggingInterceptor.Level.BODY)
-
-        val clientBuilder = client.newBuilder().addInterceptor(interceptor)
 
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(clientBuilder.build())
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

@@ -1,6 +1,5 @@
 package com.kurnavova.spacedout.navigation
 
-import android.content.res.Configuration
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -13,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.kurnavova.spacedout.R
+import com.kurnavova.spacedout.ui.preview.ComponentPreview
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,8 +52,7 @@ data class ToolbarState(
     val backActionAvailable: Boolean
 )
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
+@ComponentPreview
 @Composable
 private fun ToolbarPreview() {
     SpacedOutTheme {

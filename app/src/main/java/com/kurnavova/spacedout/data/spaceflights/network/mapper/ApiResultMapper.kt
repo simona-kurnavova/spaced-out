@@ -16,9 +16,9 @@ internal fun <T, R> Response<T>.toApiResult(processBody: (T) -> R): ApiResult<R>
             ?: ApiResult.Error(ErrorType.Unknown)
     } else {
         when (code()) {
+            408 -> ApiResult.Error(ErrorType.Network) // Request Timeout
             in 400..419 -> ApiResult.Error(ErrorType.Client)
             in 500..519 -> ApiResult.Error(ErrorType.Server)
-            408 -> ApiResult.Error(ErrorType.Network) // Request Timeout
             else -> ApiResult.Error(ErrorType.Unknown) // Other unknown errors
         }
     }
