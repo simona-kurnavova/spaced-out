@@ -23,8 +23,8 @@ import com.kurnavova.spacedout.ui.components.text.ClickableText
 import com.kurnavova.spacedout.ui.components.text.HighlightedText
 import com.kurnavova.spacedout.ui.components.text.FadedSubtitle
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
-import com.kurnavova.spacedout.ui.utils.IntentUtils
 import com.kurnavova.spacedout.ui.preview.ComponentPreview
+import com.kurnavova.spacedout.ui.utils.BrowserUtils
 
 @Composable
 fun ArticleDetail(
@@ -71,7 +71,7 @@ fun ArticleDetail(
 
         ClickableText(
             text = stringResource(R.string.news_detail_read_article_here),
-            onClick = { IntentUtils.openBrowser(article.url, context) },
+            onClick = { BrowserUtils.openInCustomTabs(context, article.url) },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
     }

@@ -79,6 +79,9 @@ dependencies {
     // Swipe to refresh
     implementation(libs.accompanist.swiperefresh)
 
+    // CCT (browser)
+    implementation(libs.browser)
+
     // Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
