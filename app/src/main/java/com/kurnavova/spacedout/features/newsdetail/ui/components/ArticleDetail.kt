@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.kurnavova.spacedout.R
-import com.kurnavova.spacedout.domain.usecase.model.Article
+import com.kurnavova.spacedout.features.ui.model.Article
 import com.kurnavova.spacedout.ui.components.image.CoilImage
 import com.kurnavova.spacedout.ui.components.text.ClickableText
 import com.kurnavova.spacedout.ui.components.text.HighlightedText

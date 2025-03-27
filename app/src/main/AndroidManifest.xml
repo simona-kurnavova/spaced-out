@@ -9,6 +9,11 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <!-- Query for installed browsers to open article link. -->
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+
     <application
         android:name=".App"
         android:icon="@mipmap/ic_launcher"
@@ -28,5 +33,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

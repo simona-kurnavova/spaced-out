@@ -5,9 +5,10 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Stable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kurnavova.spacedout.domain.model.ApiResult
 import com.kurnavova.spacedout.domain.usecase.FetchArticleDetailUseCase
-import com.kurnavova.spacedout.domain.usecase.model.Article
-import com.kurnavova.spacedout.domain.usecase.model.ArticleUseCaseResult
+import com.kurnavova.spacedout.features.ui.mapper.toArticle
+import com.kurnavova.spacedout.features.ui.model.Article
 import com.kurnavova.spacedout.ui.mapper.toErrorMessage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -51,16 +52,16 @@ class NewsDetailViewModel(
         currentId = id
 
         viewModelScope.launch {
-            val result = fetchArticleDetailUseCase.fetchArticle(id)
+            val result = fetchArticleDetailUseCase.invoke(id)
 
             _uiState.update {
                 when (result) {
-                    is ArticleUseCaseResult.Error ->
-                        NewsDetailUiState.Error(result.error.toErrorMessage())
+                    is ApiResult.Error ->
+                        NewsDetailUiState.Error(result.toErrorMessage())
 
-                    is ArticleUseCaseResult.Success -> {
+                    is ApiResult.Success -> {
                         Log.d("NewsDetailViewModel", "ArticleUseCaseResult.Success ${result.data}")
-                        NewsDetailUiState.Loaded(result.data)
+                        NewsDetailUiState.Loaded(result.data.toArticle())
 
                     }
                 }

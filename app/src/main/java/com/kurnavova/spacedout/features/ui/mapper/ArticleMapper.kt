@@ -1,7 +1,7 @@
-package com.kurnavova.spacedout.domain.usecase.mapper
+package com.kurnavova.spacedout.features.ui.mapper
 
 import com.kurnavova.spacedout.domain.model.ArticleDetail
-import com.kurnavova.spacedout.domain.usecase.model.Article
+import com.kurnavova.spacedout.features.ui.model.Article
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

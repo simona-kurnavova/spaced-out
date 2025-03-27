@@ -2,7 +2,7 @@ package com.kurnavova.spacedout.features.newslist.ui.utils
 
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
-import com.kurnavova.spacedout.domain.usecase.model.Article
+import com.kurnavova.spacedout.features.ui.model.Article
 
 /**
  * Returns true if the list is loading for the very first time.

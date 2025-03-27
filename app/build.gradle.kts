@@ -76,9 +76,6 @@ dependencies {
     // WorkManager
     implementation(libs.androidx.work)
 
-    // CCT (browser)
-    implementation(libs.browser)
-
     // Swipe to refresh
     implementation(libs.accompanist.swiperefresh)
 

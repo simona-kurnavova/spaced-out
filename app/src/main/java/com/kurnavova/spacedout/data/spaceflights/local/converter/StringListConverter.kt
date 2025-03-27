@@ -1,24 +1,24 @@
 package com.kurnavova.spacedout.data.spaceflights.local.converter
 
 import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.decodeFromString
 
 /**
- * Converts list of strings to JSON and back.
+ * Converts list of strings to JSON and back using Kotlinx Serialization.
  */
 internal class StringListConverter {
-    private val gson = Gson()
+
+    private val json = Json { prettyPrint = true } // Optional configuration
 
     @TypeConverter
     fun fromList(list: List<String>?): String {
-        return gson.toJson(list)
+        return json.encodeToString(list ?: emptyList())
     }
 
     @TypeConverter
     fun toList(data: String?): List<String> {
-        if (data.isNullOrEmpty()) return emptyList()
-        val listType = object : TypeToken<List<String>>() {}.type
-        return gson.fromJson(data, listType)
+        return if (data.isNullOrEmpty()) emptyList() else json.decodeFromString(data)
     }
 }

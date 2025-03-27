@@ -3,15 +3,15 @@ package com.kurnavova.spacedout.ui.mapper
 import androidx.annotation.StringRes
 import com.kurnavova.spacedout.R
 import com.kurnavova.spacedout.domain.model.ApiResult
-import com.kurnavova.spacedout.domain.usecase.model.UseCaseError
+import com.kurnavova.spacedout.domain.model.ErrorType
 
 /**
  * Maps an [ApiResult.Error] to a string resource ID.
  */
 @StringRes
-fun UseCaseError.toErrorMessage(): Int = when(this) {
-    UseCaseError.Server -> R.string.error_server
-    UseCaseError.Client -> R.string.error_client
-    UseCaseError.Network -> R.string.error_network
-    UseCaseError.Unknown -> R.string.error_unknown
+fun ApiResult.Error.toErrorMessage(): Int = when(type) {
+    ErrorType.Server -> R.string.error_server
+    ErrorType.Client -> R.string.error_client
+    ErrorType.Network -> R.string.error_network
+    ErrorType.Unknown -> R.string.error_unknown
 }

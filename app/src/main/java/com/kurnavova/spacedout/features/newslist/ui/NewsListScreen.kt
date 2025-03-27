@@ -20,7 +20,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.kurnavova.spacedout.R
-import com.kurnavova.spacedout.domain.usecase.model.Article
+import com.kurnavova.spacedout.features.ui.model.Article
 import com.kurnavova.spacedout.features.newslist.ui.components.ErrorState
 import com.kurnavova.spacedout.features.newslist.ui.components.ListArticle
 import com.kurnavova.spacedout.features.newslist.ui.components.OfflineBanner
@@ -138,7 +138,7 @@ private fun TopLevelStatusIndicator(
 
         // Data are being loaded, show loading in the middle of the screen.
         isInitialLoad -> {
-            CircularProgressIndicator(modifier = modifier)
+            CircularProgressIndicator(modifier = modifier.padding(vertical = SPACE_BETWEEN_ITEMS.dp))
         }
 
         // There was an error in loading the data, but we are still showing some data.

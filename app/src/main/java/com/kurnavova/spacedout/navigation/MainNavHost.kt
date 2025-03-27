@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,20 +43,24 @@ fun MainNavHost(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable<NewsList> {
-                toolbarState = ToolbarState(
-                    title = R.string.app_name,
-                    backActionAvailable = false
-                )
+                LaunchedEffect(Unit) {
+                    toolbarState = ToolbarState(
+                        title = R.string.app_name,
+                        backActionAvailable = false
+                    )
+                }
 
                 NewsListScreenRoot { id: Int ->
                     navController.navigate(NewsDetail(id))
                 }
             }
             composable<NewsDetail> { backStackEntry ->
-                toolbarState = ToolbarState(
-                    title = R.string.news_detail_toolbar_title,
-                    backActionAvailable = true
-                )
+                LaunchedEffect(Unit) {
+                    toolbarState = ToolbarState(
+                        title = R.string.news_detail_toolbar_title,
+                        backActionAvailable = true
+                    )
+                }
 
                 val route = backStackEntry.toRoute<NewsDetail>()
                 NewsDetailScreenRoot(id = route.id)

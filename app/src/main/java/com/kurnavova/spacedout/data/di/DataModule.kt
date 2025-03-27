@@ -25,7 +25,7 @@ val dataModule = module {
     factory<ArticleDao> { get<ArticleDatabase>().articleDao }
 
     // Cleanup
-    factory { CleanupManagerImpl } bind CleanupManager::class
+    factoryOf(::CleanupManagerImpl) bind CleanupManager::class
 
     // Repository implementation
     factoryOf(::SpaceFlightRepositoryImpl) bind SpaceFlightRepository::class

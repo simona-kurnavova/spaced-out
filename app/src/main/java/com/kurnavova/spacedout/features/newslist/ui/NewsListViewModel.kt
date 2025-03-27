@@ -4,9 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.kurnavova.spacedout.domain.usecase.FetchArticlesUseCase
-import com.kurnavova.spacedout.domain.usecase.model.Article
+import com.kurnavova.spacedout.features.ui.mapper.toArticle
+import com.kurnavova.spacedout.features.ui.model.Article
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * ViewModel for the NewsListScreen.
@@ -19,7 +22,9 @@ class NewsListViewModel(
      * Flow of the current UI state.
      */
     val uiState: Flow<PagingData<Article>> = fetchArticlesUseCase
-        .fetchArticles()
+        .invoke().map {
+            it.map { articleDetail -> articleDetail.toArticle() }
+        }
         .cachedIn(viewModelScope)
 }
 

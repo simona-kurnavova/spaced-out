@@ -20,6 +20,8 @@
     <string name="news_detail_read_article_here">Read the whole article here</string>
     <!-- Authors and date time of the news article. %1$s will be replaced by list of authors and %2$s by date and time of article. -->
     <string name="news_detail_authors_datetime">%1$s, %2$s</string>
+    <!-- No browser available to open this link message. -->
+    <string name="no_browser_available_toast">No browser available to open this link.</string>
 
     <!-- News list screen -->
     <!-- Read more - clickable text button leading to article detail. -->
@@ -32,4 +34,5 @@
     <string name="try_again_button">Refresh</string>
     <!-- Offline message on news list screen. -->
     <string name="offline_message">Showing offline data only!</string>
+
 </resources>

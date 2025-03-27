@@ -6,6 +6,9 @@ import com.kurnavova.spacedout.domain.usecase.ScheduleCleanupUseCase
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
+/**
+ * Module for domain layer.
+ */
 internal val domainModule = module {
     // UseCases
     factoryOf(::FetchArticlesUseCase)

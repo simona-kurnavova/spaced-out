@@ -1,6 +1,5 @@
 package com.kurnavova.spacedout.domain.usecase
 
-import android.content.Context
 import com.kurnavova.spacedout.domain.api.CleanupManager
 
 /**
@@ -11,10 +10,8 @@ class ScheduleCleanupUseCase(
 ){
     /**
      * Schedules a cleanup task.
-     *
-     * @param context The context to use.
      */
-    fun scheduleCleanUp(context: Context) {
-        cleanupManager.scheduleCleanUp(context)
+    operator fun invoke() {
+        cleanupManager.scheduleCleanUp()
     }
 }

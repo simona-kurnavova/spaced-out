@@ -3,7 +3,7 @@ package com.kurnavova.spacedout.features.newslist.ui.components
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.kurnavova.spacedout.domain.usecase.model.Article
+import com.kurnavova.spacedout.features.ui.model.Article
 import com.kurnavova.spacedout.features.newslist.ui.components.item.ArticleCard
 import com.kurnavova.spacedout.ui.preview.ComponentPreview
 import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
