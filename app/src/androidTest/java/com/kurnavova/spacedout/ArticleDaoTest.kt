@@ -58,7 +58,7 @@ class ArticleDaoTest {
 
     @Test
     fun testDeleteOlderThan() = runTest {
-        val articles = createTestingArticles(5)
+        val articles = createTestingArticles(8)
         articleDao.insertArticles(articles)
 
         val thresholdDate = "2025-03-23"

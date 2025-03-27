@@ -10,15 +10,13 @@ import kotlinx.serialization.decodeFromString
  */
 internal class StringListConverter {
 
-    private val json = Json { prettyPrint = true } // Optional configuration
-
     @TypeConverter
     fun fromList(list: List<String>?): String {
-        return json.encodeToString(list ?: emptyList())
+        return Json.encodeToString(list ?: emptyList())
     }
 
     @TypeConverter
     fun toList(data: String?): List<String> {
-        return if (data.isNullOrEmpty()) emptyList() else json.decodeFromString(data)
+        return if (data.isNullOrEmpty()) emptyList() else Json.decodeFromString(data)
     }
 }

@@ -56,6 +56,8 @@ internal class SpaceFlightRepositoryImpl(
     /**
      * Cleans the cache by deleting all articles that are older than [CLEANUP_THRESHOLD_DAYS] days.
      *
+     * Note: using published date for simplicity, but it would be better to store the time user opened/saw the article or similar.
+     *
      * @return True if the cache was cleaned successfully, false otherwise.
      */
     suspend fun cleanOldCache(): Boolean = withContext(dispatcher) {
