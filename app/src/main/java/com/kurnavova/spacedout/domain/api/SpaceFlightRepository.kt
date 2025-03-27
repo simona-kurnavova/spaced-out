@@ -16,6 +16,19 @@ interface SpaceFlightRepository {
     fun getArticlesWithPaging(): Flow<PagingData<ArticleDetail>>
 
     /**
+     * Returns a [Flow] of paginated favorite articles.
+     */
+    fun getFavouriteArticlesWithPaging(): Flow<PagingData<ArticleDetail>>
+
+    /**
+     * Updates the favourite status of an article.
+     *
+     * @param id The unique identifier of the article.
+     * @param isFavourite The new value of the favourite status.
+     */
+    suspend fun updateFavouriteStatus(id: Int, isFavourite: Boolean)
+
+    /**
      * Returns an article by its unique identifier.
      *
      * @param id The unique identifier of the article.

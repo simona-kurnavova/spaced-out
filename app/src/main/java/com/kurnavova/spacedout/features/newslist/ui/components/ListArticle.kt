@@ -34,7 +34,8 @@ private fun ListArticlePreview() {
                 imageUrl = "https://www.nasa.gov/wp-content/uploads/2025/03/lrc-2025-ocio-p-00643-3.jpg",
                 url = "http://example.com",
                 authors = "Author 1, Author 2",
-                publishedAt = "02/03/1992"
+                publishedAt = "02/03/1992",
+                isFavourite = true
             ),
             showDetail = {}
         )

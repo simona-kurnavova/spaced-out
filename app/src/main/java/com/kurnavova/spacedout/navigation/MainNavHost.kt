@@ -15,8 +15,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.kurnavova.spacedout.R
+import com.kurnavova.spacedout.features.favourites.ui.FavouriteArticlesScreenRoot
 import com.kurnavova.spacedout.features.newsdetail.ui.NewsDetailScreenRoot
 import com.kurnavova.spacedout.features.newslist.ui.NewsListScreenRoot
+import com.kurnavova.spacedout.navigation.route.Favourites
 import com.kurnavova.spacedout.navigation.route.NewsDetail
 import com.kurnavova.spacedout.navigation.route.NewsList
 
@@ -25,7 +27,7 @@ fun MainNavHost(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
     var toolbarState: ToolbarState by remember {
-        mutableStateOf(ToolbarState(R.string.app_name, false))
+        mutableStateOf(ToolbarState(R.string.app_name, false, false))
     }
 
     Scaffold(
@@ -33,6 +35,7 @@ fun MainNavHost(modifier: Modifier = Modifier) {
         topBar = {
             Toolbar(
                 toolbarState = toolbarState,
+                goToFavourites = { navController.navigate(Favourites) },
                 popBackStack = navController::popBackStack
             )
         },
@@ -46,7 +49,8 @@ fun MainNavHost(modifier: Modifier = Modifier) {
                 LaunchedEffect(Unit) {
                     toolbarState = ToolbarState(
                         title = R.string.app_name,
-                        backActionAvailable = false
+                        backActionAvailable = false,
+                        showFavourites = true
                     )
                 }
 
@@ -58,12 +62,26 @@ fun MainNavHost(modifier: Modifier = Modifier) {
                 LaunchedEffect(Unit) {
                     toolbarState = ToolbarState(
                         title = R.string.news_detail_toolbar_title,
-                        backActionAvailable = true
+                        backActionAvailable = true,
+                        showFavourites = false
                     )
                 }
 
                 val route = backStackEntry.toRoute<NewsDetail>()
                 NewsDetailScreenRoot(id = route.id)
+            }
+            composable<Favourites> {
+                LaunchedEffect(Unit) {
+                    toolbarState = ToolbarState(
+                        title = R.string.favourites_toolbar_title,
+                        backActionAvailable = true,
+                        showFavourites = false
+                    )
+                }
+
+                FavouriteArticlesScreenRoot(
+                    navigateToDetail = {  navController.navigate(NewsDetail(it)) }
+                )
             }
         }
     }

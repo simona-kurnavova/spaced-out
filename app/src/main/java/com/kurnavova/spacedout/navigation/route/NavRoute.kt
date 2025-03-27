@@ -20,3 +20,9 @@ data object NewsList : NavRoute
  */
 @Serializable
 data class NewsDetail(val id: Int) : NavRoute
+
+/**
+ * Favourites route.
+ */
+@Serializable
+data object Favourites : NavRoute

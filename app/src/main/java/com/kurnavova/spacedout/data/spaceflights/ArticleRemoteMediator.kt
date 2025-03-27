@@ -97,7 +97,7 @@ internal class ArticleRemoteMediator(
     private suspend fun cacheArticles(articles: List<ArticleResponse>) {
         withContext(Dispatchers.IO) {
             Log.d(TAG, "Caching articles of size: ${articles.size}")
-            articleDao.insertArticles(articles.map { it.toEntity() })
+            articleDao.upsertArticles(articles.map { it.toEntity() })
         }
     }
 

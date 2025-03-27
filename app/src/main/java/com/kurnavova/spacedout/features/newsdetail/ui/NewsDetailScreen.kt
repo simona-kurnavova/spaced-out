@@ -32,13 +32,20 @@ fun NewsDetailScreenRoot(
     }
 
     NewsDetailScreen(
-        uiState = viewModel.uiState.collectAsStateWithLifecycle()
+        uiState = viewModel.uiState.collectAsStateWithLifecycle(),
+        onAction = {
+            when (it) {
+                is NewsDetailAction.SetFavourite -> viewModel.onAction(it)
+                else -> Unit
+            }
+        }
     )
 }
 
 @Composable
 private fun NewsDetailScreen(
     uiState: State<NewsDetailUiState>,
+    onAction: (NewsDetailAction) -> Unit
 ) {
     val status = uiState.value
 
@@ -60,8 +67,13 @@ private fun NewsDetailScreen(
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier.align(Alignment.Center)
             )
+
             is NewsDetailUiState.Loaded ->
-                ArticleDetail(status.article)
+                ArticleDetail(
+                    status.article, onFavourite = {
+                        onAction(NewsDetailAction.SetFavourite(status.article.id, it))
+                    }
+                )
         }
     }
 }
@@ -81,7 +93,8 @@ private fun NewsDetailScreenPreview() {
                     imageUrl = "https://www.nasa.gov/wp-content/uploads/2025/03/lrc-2025-ocio-p-00643-3.jpg",
                     url = "http://example.com",
                     authors = "Author 1, Author 2",
-                    publishedAt = "02/03/1992"
+                    publishedAt = "02/03/1992",
+                    isFavourite = true
                 )
             )
         )
@@ -90,6 +103,7 @@ private fun NewsDetailScreenPreview() {
     SpacedOutTheme {
         NewsDetailScreen(
             uiState = state,
+            onAction = {}
         )
     }
 }

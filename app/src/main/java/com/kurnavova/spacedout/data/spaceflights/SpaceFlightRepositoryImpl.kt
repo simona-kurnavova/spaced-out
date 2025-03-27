@@ -45,6 +45,13 @@ internal class SpaceFlightRepositoryImpl(
         pagingData.map { it.toDomain() }
     }
 
+    override fun getFavouriteArticlesWithPaging(): Flow<PagingData<ArticleDetail>> = Pager(
+        config = PagingConfig(pageSize = PAGE_SIZE),
+        pagingSourceFactory = { articleDao.getPagedFavouriteArticles() }
+    ).flow.map { pagingData ->
+        pagingData.map { it.toDomain() }
+    }
+
     override suspend fun getArticleById(id: Int): ApiResult<ArticleDetail> =
         queryArticleFromCache(id)
             ?.let { ApiResult.Success(it.toDomain()) }
@@ -52,6 +59,20 @@ internal class SpaceFlightRepositoryImpl(
                 query = { spaceFlightApi.getArticle(id) },
                 processBody = { it.toDomain() }
             )
+
+    /**
+     * Updates the favourite status of an article by its ID.
+     *
+     * @param id Unique identifier of the article to be updated.
+     * @param isFavourite New favourite status (true or false).
+     */
+    override suspend fun updateFavouriteStatus(id: Int, isFavourite: Boolean) {
+        withContext(dispatcher) {
+            Log.d(TAG, "Updating favourite status of article with id $id to $isFavourite")
+            // Note: For simplicity, let's ignore the result here.
+            runCatching { articleDao.updateFavouriteStatus(id, isFavourite) }
+        }
+    }
 
     /**
      * Cleans the cache by deleting all articles that are older than [CLEANUP_THRESHOLD_DAYS] days.

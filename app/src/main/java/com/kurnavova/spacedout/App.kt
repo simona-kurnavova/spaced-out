@@ -4,6 +4,7 @@ import android.app.Application
 import com.kurnavova.spacedout.data.di.dataModule
 import com.kurnavova.spacedout.domain.di.domainModule
 import com.kurnavova.spacedout.domain.usecase.ScheduleCleanupUseCase
+import com.kurnavova.spacedout.features.favourites.di.favouritesModule
 import com.kurnavova.spacedout.features.newsdetail.di.newsDetailModule
 import com.kurnavova.spacedout.features.newslist.di.newsListModule
 import org.koin.android.ext.android.get
@@ -29,7 +30,7 @@ class App : Application(){
                 androidLogger(Level.DEBUG)
             }
             androidContext(this@App)
-            modules(dataModule, domainModule, newsDetailModule, newsListModule)
+            modules(dataModule, domainModule, newsDetailModule, newsListModule, favouritesModule)
 
             scheduleCleanup()
         }
