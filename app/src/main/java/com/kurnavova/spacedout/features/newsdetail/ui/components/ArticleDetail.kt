@@ -1,6 +1,8 @@
 package com.kurnavova.spacedout.features.newsdetail.ui.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.kurnavova.spacedout.R
 import com.kurnavova.spacedout.features.ui.model.Article
+import com.kurnavova.spacedout.ui.components.button.FavouriteButton
 import com.kurnavova.spacedout.ui.components.image.CoilImage
 import com.kurnavova.spacedout.ui.components.text.ClickableText
 import com.kurnavova.spacedout.ui.components.text.HighlightedText
@@ -29,6 +32,7 @@ import com.kurnavova.spacedout.ui.utils.BrowserUtils
 @Composable
 fun ArticleDetail(
     article: Article,
+    onFavourite: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -48,14 +52,26 @@ fun ArticleDetail(
             modifier = Modifier.fillMaxWidth()
         )
 
-        FadedSubtitle(
-            text = stringResource(
-                R.string.news_detail_authors_datetime,
-                article.authors,
-                article.publishedAt
-            ),
-            modifier = Modifier.padding(vertical = AUTHOR_PADDING.dp)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = AUTHOR_PADDING.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            FadedSubtitle(
+                text = stringResource(
+                    R.string.news_detail_authors_datetime,
+                    article.authors,
+                    article.publishedAt
+                )
+            )
+            FavouriteButton(
+                isChecked = article.isFavourite,
+                onCheck = onFavourite,
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
+        }
 
         Spacer(modifier = Modifier.height(SPACE_BETWEEN_ITEMS.dp))
 
@@ -93,8 +109,10 @@ private fun ArticleDetailPreview() {
                 imageUrl = "https://example.com/image.jpg",
                 authors = "Author",
                 publishedAt = "2022-01-01",
-                url = "https://example.com"
-            )
+                url = "https://example.com",
+                isFavourite = false
+            ),
+            onFavourite = {}
         )
     }
 }

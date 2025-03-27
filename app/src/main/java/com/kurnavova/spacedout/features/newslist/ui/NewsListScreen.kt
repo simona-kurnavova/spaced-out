@@ -21,7 +21,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.kurnavova.spacedout.R
 import com.kurnavova.spacedout.features.ui.model.Article
-import com.kurnavova.spacedout.features.newslist.ui.components.ErrorState
+import com.kurnavova.spacedout.features.ui.components.ErrorState
 import com.kurnavova.spacedout.features.newslist.ui.components.ListArticle
 import com.kurnavova.spacedout.features.newslist.ui.components.OfflineBanner
 import com.kurnavova.spacedout.features.newslist.ui.utils.isAppendError
@@ -160,7 +160,8 @@ private fun NewsListPreview() {
         imageUrl = "https://example.com/image.jpg",
         url = "https://example.com",
         authors = "Author 1, Author 2",
-        publishedAt = "02/03/1992"
+        publishedAt = "02/03/1992",
+        isFavourite = false
     )
 
     val articles = MutableStateFlow(PagingData.from(List(3) { article.copy(id = it) }))

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kurnavova.spacedout.domain.model.ApiResult
 import com.kurnavova.spacedout.domain.usecase.FetchArticleDetailUseCase
+import com.kurnavova.spacedout.domain.usecase.UpdateFavouriteStatusUseCase
 import com.kurnavova.spacedout.features.ui.mapper.toArticle
 import com.kurnavova.spacedout.features.ui.model.Article
 import com.kurnavova.spacedout.ui.mapper.toErrorMessage
@@ -20,6 +21,7 @@ import kotlinx.coroutines.launch
  */
 class NewsDetailViewModel(
     private val fetchArticleDetailUseCase: FetchArticleDetailUseCase,
+    private val updateFavouriteStatusUseCase: UpdateFavouriteStatusUseCase
 ) : ViewModel() {
     private var currentId: Int? = null
 
@@ -36,15 +38,16 @@ class NewsDetailViewModel(
     fun onAction(action: NewsDetailAction) {
         when (action) {
             is NewsDetailAction.FetchArticle -> fetchArticle(action.id)
+            is NewsDetailAction.SetFavourite -> setFavourite(action.id, action.isFavourite)
         }
     }
 
-    private fun fetchArticle(id: Int) {
+    private fun fetchArticle(id: Int, force: Boolean = false) {
         if (_uiState.value is NewsDetailUiState.Loading) {
             return // Already loading
         }
 
-        if (currentId == id && _uiState.value is NewsDetailUiState.Loaded) {
+        if (!force && currentId == id && _uiState.value is NewsDetailUiState.Loaded) {
             return // Already loaded
         }
 
@@ -67,6 +70,15 @@ class NewsDetailViewModel(
                 }
            }
        }
+    }
+
+    private fun setFavourite(id: Int, isFavourite: Boolean) {
+        viewModelScope.launch {
+            updateFavouriteStatusUseCase.invoke(id, isFavourite)
+
+            // Update the UI state
+            fetchArticle(id, force = true)
+        }
     }
 }
 
@@ -110,4 +122,12 @@ sealed class NewsDetailAction {
      * @param id The ID of the article to fetch.
      */
     data class FetchArticle(val id: Int) : NewsDetailAction()
+
+    /**
+     * Sets the favourite status of the article with the given ID.
+     *
+     * @param id The ID of the article.
+     * @param isFavourite The new favourite status.
+     */
+    data class SetFavourite(val id: Int, val isFavourite: Boolean) : NewsDetailAction()
 }

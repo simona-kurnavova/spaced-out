@@ -1,4 +1,4 @@
-package com.kurnavova.spacedout.features.newslist.ui.components
+package com.kurnavova.spacedout.features.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -10,6 +10,7 @@ package com.kurnavova.spacedout.domain.model
  * @property url The URL of the article.
  * @property authors The authors of the article.
  * @property publishedAt The date the article was published.
+ * @property isFavourite Whether the article is marked as favourite.
  */
 data class ArticleDetail(
     val id: Int,
@@ -18,5 +19,6 @@ data class ArticleDetail(
     val imageUrl: String,
     val url: String,
     val authors: List<String>,
-    val publishedAt: String
+    val publishedAt: String,
+    val isFavourite: Boolean,
 )

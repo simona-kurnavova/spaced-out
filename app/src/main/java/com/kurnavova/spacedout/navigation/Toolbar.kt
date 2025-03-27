@@ -3,6 +3,7 @@ package com.kurnavova.spacedout.navigation
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,6 +21,7 @@ import com.kurnavova.spacedout.ui.theme.SpacedOutTheme
 @Composable
 fun Toolbar(
     toolbarState: ToolbarState,
+    goToFavourites: () -> Unit,
     popBackStack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -31,6 +33,16 @@ fun Toolbar(
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(R.string.back)
+                    )
+                }
+            }
+        },
+        actions = {
+            if (toolbarState.showFavourites) {
+                IconButton(onClick = goToFavourites) {
+                    Icon(
+                        Icons.Default.FavoriteBorder,
+                        contentDescription = stringResource(R.string.favourites_toolbar_title)
                     )
                 }
             }
@@ -49,7 +61,8 @@ fun Toolbar(
 data class ToolbarState(
     @StringRes
     val title: Int,
-    val backActionAvailable: Boolean
+    val backActionAvailable: Boolean,
+    val showFavourites: Boolean
 )
 
 @ComponentPreview
@@ -57,7 +70,8 @@ data class ToolbarState(
 private fun ToolbarPreview() {
     SpacedOutTheme {
         Toolbar(
-            toolbarState = ToolbarState(R.string.app_name, false),
+            toolbarState = ToolbarState(R.string.app_name, false, true),
+            goToFavourites = {},
             popBackStack = {}
         )
     }

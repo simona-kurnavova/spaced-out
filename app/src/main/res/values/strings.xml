@@ -35,4 +35,17 @@
     <!-- Offline message on news list screen. -->
     <string name="offline_message">Showing offline data only!</string>
 
+    <!-- Favourite articles screen -->
+    <!-- Toolbar title for favourite articles screen. -->
+    <string name="favourites_toolbar_title">Favourites</string>
+    <!-- Message for empty favourite articles list. -->
+    <string name="favourites_no_articles">You have no favourite articles</string>
+    <!-- Loading error message. -->
+    <string name="favourites_load_failed">There was an error loading your favourite articles.</string>
+
+    <!-- Favourite button -->
+    <!-- Favourite button content description for removing -->
+    <string name="favourite_button_remove_descr">Remove from favourites</string>
+    <!-- Favourite button content description for adding -->
+    <string name="favourite_button_add_descr">Add to favourites</string>
 </resources>
